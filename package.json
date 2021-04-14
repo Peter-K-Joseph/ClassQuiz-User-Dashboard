@@ -1,0 +1,18 @@
+{
+  "name": "class-quiz",
+  "version": "2.0.0",
+  "description": "Create Quizzes online",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter K Joseph",
+  "license": "MIT",
+  "dependencies": {
+    "luxon": "^1.26.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.5",
+    "@types/luxon": "^1.26.3"
+  }
+}

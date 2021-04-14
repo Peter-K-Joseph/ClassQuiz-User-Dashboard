@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./dependencies/jquery/jquery.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/8ecf02a7bc.js"></script>
+    <title>Dashboard - ClassQuiz</title>
+</head>
+
+<body>
+    <div class="loader">
+        <div>
+            <h1 class="display-1">ClassQuiz</h1>
+            <h6 class="text-center">By nuvie</h6>
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+            <h4 class="text-center" id="loadingStat">Now Loading...</h4>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 leftNav">
+                <div class="logo">
+                    <div class="container">
+                        <h3 class="text-center">ClassQuiz</h3>
+                        <p class="text-center">Create Quizzes Online</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="createQuiz"><i class="fas fa-plus newQuizIcon"></i>&nbsp;&nbsp;Create a Quiz</div>
+                    <div class="subMenu">
+                        <ul>
+                            <li class="sideNav selected">Home</li>
+                            <li class="sideNav">Search</li>
+                            <li class="sideNav">All Quizes</li>
+                            <li class="sideNav" id="sideNav_settings">Settings</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="account col" id="account_overview_info">
+                </div>
+            </div>
+            <div class="col mainDiv">
+                <div class="container mainDiv">
+                    <div class="heading">
+                        <h1>Upcoming Scheduled Quiz</h1>
+                    </div>
+                    <div class="container">
+                        <div class="row recents" id="next_up_recents">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background d-none" id="activateQuiz">
+        <div class="modal-Onscreen sq-3">
+            <div class="close" id="closeactivateQuiz" parentModal="activateQuiz"><i class="fas fa-times"></i></div>
+            <div class="container">
+                <i class="fas fa-exclamation-triangle activateQuizAlert"></i>
+                <h3 class="text-center" id="activateQuiz_alertHeading">{heading}</h3>
+                <p class="text-center lead m-3" id="activateQuiz_alertText">{Description}</p>
+                <button class="btn btn-danger w-4 m-2 ms-3" id="activateQuiz_btn-no" parentModal="activateQuiz"
+                    onclick="closeModal(0)">No</button>
+                <button class="btn btn-success w-4 m-2 me-3" id="activateQuiz_btn-yes">Yes</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-background d-none" id="displayActiveQuizDetails">
+        <div class="modal-Onscreen">
+            <div class="close" id="closeDisplayActiveQuizDetials" parentModal="displayActiveQuizDetails"><i
+                    class="fas fa-times"></i></div>
+            <div class="container w-100 h-100" id="displayActiveQuizDetailsContainerContent"
+                style="display: flex;align-items: center;justify-content: center;">
+            </div>
+        </div>
+    </div>
+    <div class="modal-background d-none" id="account-information-highview">
+        <div class="modal-Onscreen">
+            <div class="close" id="closeAccount-information-highview" parentModal="account-information-highview"><i
+                    class="fas fa-times"></i></div>
+            <div class="container m-3">
+                <div class="row">
+                    <div class="col-sm-2 accountsMoreview">
+                        <h1 class="display-6 text-center mt-5 title">Account Services</h1>
+                        <div class="context m-0 text-center" style="margin-top: 70% !important;">
+                            <p class="settingOption selectedNav" trigger="accountInformation">Account Information</p>
+                            <p class="settingOption" trigger="dataAndPersonalisation">Data and Personalisation</p>
+                            <p class="settingOption" trigger="privacyAndSecurity">Privacy and Security</p>
+                            <p class="settingOption" trigger="About">About</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <section id="accountInformation" class="settingsNav">
+                            <div class="tempDisp">
+                                <h1 class="display-4">Account Information</h1>
+                            </div>
+                            <div class="container mainDisp">
+                                <div class="row">
+                                    <div class="col m-5">
+                                        <div class="imgContainer" id="imgContainer"></div>
+                                        <h3 class="text-center" style="font-family: 'Comfortaa', cursive;"
+                                            id="userNameInSettings">@{user-name}</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mx-5">
+                                        <h3>Name</h3>
+                                        <h5 class="mx-3"><span id="ShowFirstNameInSettingsModal"
+                                                style="font-size: 1.2rem;">{first-name}</span>&nbsp;<span
+                                                id="showLastNameInSettingsModal"
+                                                style="opacity: .7; font-size: 1.2rem;">{last-name}</span></h5><br>
+                                        <h3>Identifier ID</h3>
+                                        <h5 class="mx-3" id="userIdentifierInSettings">{identifier}</h5><br>
+                                    </div>
+                                    <div class="col mx-5">
+                                        <h3>Email</h3>
+                                        <h5 class="mx-3" id="emailInSettings">{email}</h5><br>
+                                        <h3>Organisation</h3>
+                                        <h5 class="mx-3" id="organisationDisplayInSettings">{organisation-name}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="dataAndPersonalisation" class="settingsNav">
+                            <div class="tempDisp">
+                                <h1 class="display-4">Data and Personalisation</h1>
+                            </div>
+                            <div class="container mainDisp">
+                                <h2 class="mt-5 ms-5">Personalisation</h2>
+                                <div class="internalSettingOption">
+                                    <h4>Send Quiz reminders to all</h4>
+                                    <div class="container row">
+                                        <div class="col">
+                                            <p>When turned on, ClassQuiz will send a mail to the students reminding them about the quiz before the quiz starts</p>
+                                        </div>
+                                        <div class="col col-1 contentCenter">
+                                            <input id="sendQuizReminder" moduleName="ReminderDeploy_participants" type="checkbox" class="switch" checked>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="privacyAndSecurity" class="settingsNav">
+                            <div class="tempDisp">
+                                <h1 class="display-4">Privacy and Security</h1>
+                            </div>
+                            <div class="container mainDisp">
+                                <h2 class="mt-5 ms-5">Security</h2>
+                                <div class="internalSettingOption">
+                                    <h4>Two Factor Authentication</h4>
+                                    <p>Turn on an additional layer of security while logging in to ensure that your
+                                        account stays safe from external hands even if someone get's your password</p>
+                                    <div class="container">
+                                        <div class="col">
+                                            <b>Selected Mail ID</b>:&nbsp;<span id="TFA_Mailer">{mail}</span>
+                                        </div>
+                                        <div class="col contentCenter">
+                                            <button class="btn w-8 m-3">Turn On</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <h4>Forgot Password</h4>
+                                    <p>Incase you forgot your password, you can use this to option to reset it.</p>
+                                    <div class="container">
+                                        <div class="col">
+                                            <b>Reset Mail ID</b>:&nbsp;<span id="Reset_Mailer">{mail}</span>
+                                        </div>
+                                        <div class="col contentCenter">
+                                            <button class="btn w-8 m-3">Send Reset Code</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <h4>Change Password</h4>
+                                    <p>Make sure to have a strong password, something that is hard for someone to guess.
+                                        It is recommended that you have a password<br>
+                                    <ul>
+                                        <li>that has atleast 8 characters</li>
+                                        <li>contains number, letters (both uppercase and lowercase)</li>
+                                        <li>contains special characters</li>
+                                    </ul>
+                                    <div class="row m-3">
+                                        <input type="password" minlength="8" name="" class="password_entry"
+                                            placeholder="Enter your current password here" value="" id="">
+                                    </div>
+                                    <center><button class="btn" id="verify_pass" onclick="verify_pass()">Proceed to
+                                            reset</button></center>
+                                    <div class="row m-2" id="newPassword_setActive">
+
+                                    </div>
+                                    </p>
+                                </div>
+                                <h2 class="mt-5 ms-5">Privacy</h2>
+                                <div class="internalSettingOption mb-2">
+                                    <h4>Reset my account</h4>
+                                    <p>If you want to reset your account, you can click here. This will reset your reset
+                                        all data in your associated to you</p>
+                                    <button class="btn reset_acc" id="reset_acc">Reset</button>
+                                    <hr>
+                                    <h4>Delete my account</h4>
+                                    <p>This will delete your account, all your quiz data and any data associated with
+                                        your account. You will be required to <b>sign up</b> again to use this ClassQuiz
+                                    </p>
+                                    <button class="btn del_acc" ID="del_acc">Delete Account</button>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="About" class="settingsNav">
+                            <div class="tempDisp">
+                                <h1 class="display-4">About</h1>
+                            </div>
+                            <div class="container mainDisp contentCenter" style="height: 80vh">
+                                <div class="text-center" style="font-family: 'Comfortaa', cursive;">
+                                    <h1 class="display-4 m-3">ClassQuiz<span class="h6"> v2.0 beta</span></h1>
+                                    <h4>Project nuvie two</h4>
+                                    <h5>By Peter K Joseph</h5>
+                                    <div class="row m-3" style="width: 100%">
+                                        <div class="col">
+                                            <b>License</b><br><img class="m-2" src="./creative_commons.png" width="50%"
+                                                alt="Creative Commons">
+                                        </div>
+                                        <div class="col">
+                                            <b>Type</b><br><img class="m-2" src="./by-nc-sa.png" width="50%"
+                                                alt="CC BY-NC-SA">
+                                        </div>
+                                        <div class="col">
+                                            <b>Developer Information</b><br>
+                                            <p class="m-2">Peter K Joseph<br><a
+                                                    href="mailto: peterkjoseph@pm.me">peterkjoseph@pm.me</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="internalSettingOption">
+                                        <h3>License Overview</h3>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6>For Developers</h6>
+                                                <div>This license allows reusers to distribute, remix, adapt, and build
+                                                    upon the
+                                                    material in any medium or format for noncommercial purposes only,
+                                                    and only
+                                                    so long as attribution is given to the creator. If you remix, adapt,
+                                                    or
+                                                    build upon the material, you must license the modified material
+                                                    under
+                                                    identical terms. </div>
+                                            </div>
+                                            <div class="col">
+                                                <h6>For Consumers</h6>
+                                                <div>The software is provided "as is", without warranty of any kind,
+                                                    express or implied, including but not limited to the warranties of
+                                                    merchantability, fitness for a particular purpose and
+                                                    noninfringement. In no event shall the authors or copyright holders
+                                                    be liable for any claim, damages, or other liability, whether in an
+                                                    action of contract, tort or otherwise, arising from, out of or in
+                                                    connection with the software or the use or other dealings in the
+                                                    software.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-Onscreen alert" id="smallAlert" style="z-index: 1000;">
+        <div class="container">
+            <h6 class="text-center h5" id="text_smallAlert"></h6>
+        </div>
+    </div>
+</body>
+<script src="./index.js"></script>
+
+</html>
