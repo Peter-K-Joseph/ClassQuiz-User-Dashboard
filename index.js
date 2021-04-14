@@ -10,14 +10,14 @@ function timeFormat(hour, minute) {
 //System Initialisation
 //Contains all the dara in an object form so it's easier to reload the DOM
 let userData = {
-    Avatar: "loreum",
-    Avatar_Image: "./profile3.jpeg",
+    Avatar: "laura46",
+    Avatar_Image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80",
     Name: {
-        first: "Loream",
-        last: "Ipsum"
+        first: "Laura",
+        last: "Aurora"
     },
-    Email: "loreum@ipsum.in",
-    Organisation: "nuvie",
+    Email: "laura.aurora@runway.com",
+    Organisation: "Runway Inc",
     ID: "3e41-85df-8r96-ds25-f87r",
     Quizzes: {
         QuizzesData: {
@@ -219,21 +219,44 @@ class ActiveModal {
     }
 }
 class SettingsUpdate {
-    constructor(id, state, moduleAPI) {
+    constructor(id, state, moduleAPI, moduleExecutionPoint) {
         this.id = id;
         this.status = state;
         this.moduleName = moduleAPI;
-        this.uploadDataToServer(this.id, this.status, this.moduleName);
+        this.targetExecution = moduleExecutionPoint;
+        this.uploadDataToServer(this.id, this.status, this.moduleName, this.targetExecution);
     }
-    uploadDataToServer(id, status, moduleName) {
+    uploadDataToServer(id, status, moduleName, targetExecution) {
         // Sends A Post Request to server with values = {id = {this.id}, state = {this.state}, API_Name = {this.moduleName}}. 
         // if failed, Show Notification with bg-red
-        const value = {
-            id: id,
-            state: status,
-            API_Name: moduleName
-        };
-        setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
+        switch (targetExecution) {
+            case "client":
+                switch (moduleName) {
+                    case "invertColors":
+                        if (status == true) {
+                            document.getElementById("html").style.filter = "invert(1)";
+                            document.querySelector("button").style.filter = "invert(1)";
+                            document.querySelector(".selectedNav").style.filter = "invert(1)";
+                        }
+                        else
+                            document.getElementById("html").style.filter = document.querySelector("button").style.filter = document.querySelector(".selectedNav").style.filter = null;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "server":
+                const value = {
+                    id: id,
+                    state: status,
+                    API_Name: moduleName
+                };
+                setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
+                break;
+            default:
+                console.warn("Invalid Execution Point");
+                break;
+        }
     }
 }
 //SideNav Setting
@@ -241,6 +264,9 @@ class SettingsUpdate {
 document.getElementById("sideNav_settings").addEventListener("click", () => {
     document.getElementById("accountInformation").style.display = "initial";
     setModal = new ActiveModal("Settings Modal", this.id, "account-information-highview", null, "open-settings", null, null, null, null);
+});
+document.getElementById("search_quiz_button").addEventListener("click", () => {
+    setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
 });
 //Load Quiz Function.
 //Used to load and show selected quiz data to DOM
@@ -312,7 +338,7 @@ for (let i = 0; i < document.getElementsByClassName("recentQuizContainer").lengt
 }
 window.onload = () => {
     setTimeout(() => {
-        document.getElementById("loadingStat").innerHTML = `Sandwitch baked!&nbsp;&nbsp;Hello ${userData.Name.first}`;
+        document.getElementById("loadingStat").innerHTML = `Welcome Back, ${userData.Name.first}`;
     }, 100);
     setTimeout(() => {
         document.getElementsByClassName("loader")[0].parentNode.removeChild(document.getElementsByClassName("loader")[0]);
@@ -344,7 +370,7 @@ for (let i = 0; i < document.getElementsByClassName("settingOption").length; i++
 for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
     const element = document.getElementsByClassName("switch");
     element[i].addEventListener("change", () => {
-        let updateInfo = new SettingsUpdate(element[i].id, element[i].checked, element[i].getAttribute("moduleName"));
+        let updateInfo = new SettingsUpdate(element[i].id, element[i].checked, element[i].getAttribute("moduleName"), element[i].getAttribute("moduleExecutionPoint"));
         console.log(updateInfo);
     });
 }

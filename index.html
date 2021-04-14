@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,7 +42,7 @@
                     <div class="subMenu">
                         <ul>
                             <li class="sideNav selected">Home</li>
-                            <li class="sideNav">Search</li>
+                            <li class="sideNav" id="search_quiz_button">Search</li>
                             <li class="sideNav">All Quizes</li>
                             <li class="sideNav" id="sideNav_settings">Settings</li>
                         </ul>
@@ -51,6 +52,16 @@
                 </div>
             </div>
             <div class="col mainDiv">
+                <div class="search-wrapper">
+                    <input class="search-input" type="text" placeholder="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search"
+                        viewBox="0 0 24 24">
+                        <defs></defs>
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                </div>
                 <div class="container mainDiv">
                     <div class="heading">
                         <h1>Upcoming Scheduled Quiz</h1>
@@ -143,13 +154,25 @@
                                     <h4>Send Quiz reminders to all</h4>
                                     <div class="container row">
                                         <div class="col">
-                                            <p>When turned on, ClassQuiz will send a mail to the students reminding them about the quiz before the quiz starts</p>
+                                            <p>When turned on, ClassQuiz will send a mail to the students reminding them
+                                                about the quiz before the quiz starts</p>
                                         </div>
                                         <div class="col col-1 contentCenter">
-                                            <input id="sendQuizReminder" moduleName="ReminderDeploy_participants" type="checkbox" class="switch" checked>
+                                            <input id="sendQuizReminder" moduleName="ReminderDeploy_participants"
+                                                moduleExecutionPoint="server" type="checkbox" class="switch" checked>
                                         </div>
                                     </div>
                                     <hr>
+                                    <h4>Invert Colors</h4>
+                                    <div class="container row">
+                                        <div class="col">
+                                            <p>Invert the colors of the dashboard</p>
+                                        </div>
+                                        <div class="col col-1 contentCenter">
+                                            <input id="invertColors" moduleName="invertColors"
+                                                moduleExecutionPoint="client" type="checkbox" class="switch">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -280,6 +303,16 @@
     <div class="modal-Onscreen alert" id="smallAlert" style="z-index: 1000;">
         <div class="container">
             <h6 class="text-center h5" id="text_smallAlert"></h6>
+        </div>
+    </div>
+    <div class="modal-background d-none" id="searchQuiz">
+        <div class="modal-Onscreen">
+            <div class="close" id="closesearchQuiz" parentModal="searchQuiz"><i class="fas fa-times"></i></div>
+            <h1 class="display-5 p-3">Search For Quiz</h1>
+            <input type="text" name="search-bar" id="search_bar" class="" placeholder="Type here to search for Quizzes">
+            <div class="container w-100 mt-2" id="searchQuizContainerContent"
+                style="display: flex;align-items: center;justify-content: center; height: 70vh">
+            </div>
         </div>
     </div>
 </body>
