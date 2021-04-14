@@ -235,6 +235,31 @@ class ActiveModal {
 
 }
 
+class SettingsUpdate {
+    id: any;
+    status: boolean;
+    moduleName: string;
+    constructor(id: string, state: boolean, moduleAPI: string) {
+        this.id = id;
+        this.status = state;
+        this.moduleName = moduleAPI;
+        this.uploadDataToServer(this.id, this.status, this.moduleName)
+    }
+
+    uploadDataToServer(id: string, status: boolean, moduleName: string) {
+        // Sends A Post Request to server with values = {id = {this.id}, state = {this.state}, API_Name = {this.moduleName}}. 
+        // if failed, Show Notification with bg-red
+
+        const value = {
+            id: id,
+            state: status,
+            API_Name: moduleName
+        }
+
+        setModal = new ActiveModal("Full Screen Modal", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
+    }
+}
+
 //SideNav Setting
 //Add eventlistener for settings modal to be opened
 document.getElementById("sideNav_settings").addEventListener("click", () => {
@@ -352,31 +377,6 @@ for (let i = 0; i < document.getElementsByClassName("settingOption").length; i++
         document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
         classSelect[i].classList.add("selectedNav");
     })
-}
-
-class SettingsUpdate {
-    id: any;
-    status: boolean;
-    moduleName: string;
-    constructor(id: string, state: boolean, moduleAPI: string) {
-        this.id = id;
-        this.status = state;
-        this.moduleName = moduleAPI;
-        this.uploadDataToServer(this.id, this.status, this.moduleName)
-    }
-
-    uploadDataToServer(id: string, status: boolean, moduleName: string) {
-        // Sends A Post Request to server with values = {id = {this.id}, state = {this.state}, API_Name = {this.moduleName}}. 
-        // if failed, Show Notification with bg-red
-
-        const value = {
-            id: id,
-            state: status,
-            API_Name: moduleName
-        }
-
-        setModal = new ActiveModal("Full Screen Modal", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
-    }
 }
 
 for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
