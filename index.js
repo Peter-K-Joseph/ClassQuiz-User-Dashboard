@@ -206,16 +206,34 @@ class ActiveModal {
                     document.getElementById("smallAlert").classList.add(alert_btnClass.Yes);
                     setTimeout(() => {
                         document.getElementById("smallAlert").classList.remove(alert_btnClass.Yes);
-                    }, 4100);
+                    }, 1500);
                 }
                 setTimeout(() => {
                     document.getElementById("smallAlert").classList.remove("show");
-                }, 4000);
+                }, 1500);
                 break;
             default:
                 console.warn("Unexpected Parameter: System Expects [close | open-alertBox | open-fullPage]");
                 break;
         }
+    }
+}
+class SettingsUpdate {
+    constructor(id, state, moduleAPI) {
+        this.id = id;
+        this.status = state;
+        this.moduleName = moduleAPI;
+        this.uploadDataToServer(this.id, this.status, this.moduleName);
+    }
+    uploadDataToServer(id, status, moduleName) {
+        // Sends A Post Request to server with values = {id = {this.id}, state = {this.state}, API_Name = {this.moduleName}}. 
+        // if failed, Show Notification with bg-red
+        const value = {
+            id: id,
+            state: status,
+            API_Name: moduleName
+        };
+        setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
     }
 }
 //SideNav Setting
@@ -322,24 +340,6 @@ for (let i = 0; i < document.getElementsByClassName("settingOption").length; i++
         document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
         classSelect[i].classList.add("selectedNav");
     });
-}
-class SettingsUpdate {
-    constructor(id, state, moduleAPI) {
-        this.id = id;
-        this.status = state;
-        this.moduleName = moduleAPI;
-        this.uploadDataToServer(this.id, this.status, this.moduleName);
-    }
-    uploadDataToServer(id, status, moduleName) {
-        // Sends A Post Request to server with values = {id = {this.id}, state = {this.state}, API_Name = {this.moduleName}}. 
-        // if failed, Show Notification with bg-red
-        const value = {
-            id: id,
-            state: status,
-            API_Name: moduleName
-        };
-        setModal = new ActiveModal("Full Screen Modal", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
-    }
 }
 for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
     const element = document.getElementsByClassName("switch");

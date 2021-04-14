@@ -214,18 +214,18 @@ class ActiveModal {
                 document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
                 document.getElementsByClassName("settingOption")[0].classList.add("selectedNav");
                 break
-            case "show-alert":
+            case "show-alert": 
                 document.getElementById("text_smallAlert").innerHTML = alertBox_title;
                 document.getElementById("smallAlert").classList.add("show");
                 if (alert_btnClass.Yes != null) {
                     document.getElementById("smallAlert").classList.add(alert_btnClass.Yes);
                     setTimeout(() => {
                         document.getElementById("smallAlert").classList.remove(alert_btnClass.Yes);
-                    }, 4100)
+                    }, 1500)
                 }
                 setTimeout(() => {
                     document.getElementById("smallAlert").classList.remove("show");
-                }, 4000)
+                }, 1500)
                 break;
             default:
                 console.warn("Unexpected Parameter: System Expects [close | open-alertBox | open-fullPage]");
@@ -256,7 +256,7 @@ class SettingsUpdate {
             API_Name: moduleName
         }
 
-        setModal = new ActiveModal("Full Screen Modal", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
+        setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
     }
 }
 

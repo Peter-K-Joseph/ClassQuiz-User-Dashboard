@@ -539,7 +539,8 @@ button:active {
 
 .btn {
   padding: 3px 10px;
-  background-color: #5bff9f;
+  background-color: #453fff;
+  color: rgb(238, 231, 231);
   box-shadow: none;
 }
 
@@ -578,7 +579,7 @@ button:active {
   height: 50px;
   width: 400px;
   position: fixed;
-  bottom: -150px;
+  top: -150px;
   left: 50%;
   box-shadow: 0px 0px 10px rgb(170, 170, 170), -10px -10px 52px #6e6e6e63;
   transform: translateX(-60%);
@@ -586,22 +587,11 @@ button:active {
 }
 
 .alert.show {
-  bottom: 0;
+  top: 0;
 }
 
-@keyframes alertBox {
-  0% {
-  }
-  5% {
-    bottom: 0;
-  }
-  95% {
-    bottom: 0;
-  }
-  100% {
-  }
-}
 
+/* Alert Box Style Format */
 .bg-red {
   background-color: rgb(255, 62, 62);
   color: rgb(247, 243, 243);
