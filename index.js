@@ -125,7 +125,7 @@ let userData = {
 const innerHTMLContent = { emailInSettings: userData.Email, TFA_Mailer: userData.Email, Reset_Mailer: userData.Email, ShowFirstNameInSettingsModal: userData.Name.first, showLastNameInSettingsModal: userData.Name.last, userNameInSettings: "@" + userData.Avatar, userIdentifierInSettings: userData.ID, organisationDisplayInSettings: ((userData.Organisation == "") ? "none" : userData.Organisation) };
 //Verification Services checks if the user is legit while performing critical operations. Sends a request to hostIP/api/user?identifier=${userData.ID}
 function userVerificationServices() {
-    return false;
+    return true;
 }
 //Updating Components in DOM
 function updateSerices() {
@@ -372,6 +372,7 @@ for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
     });
 }
 document.getElementById("search-index").addEventListener("input", () => {
+    let result = [];
     const searchBar = document.getElementById("search-index");
     const searchWrapper = document.getElementsByClassName("search-wrapper")[0];
     if (searchBar.value !== "") {
@@ -379,14 +380,19 @@ document.getElementById("search-index").addEventListener("input", () => {
         searchWrapper.style.zIndex = "1";
         setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
         for (let i in userData.Quizzes.QuizzesData) {
-            console.log(userData.Quizzes.QuizzesData[i].name);
             if (userData.Quizzes.QuizzesData[i].name.indexOf(searchBar.value) != -1) { //match(/([searchBar.value])\w+/gi).length == 2
                 console.log(userData.Quizzes.QuizzesData[i].name + " > PASSED");
+                result.push(userData.Quizzes.QuizzesData[i].name);
             }
+        }
+        console.log(result);
+        if (result.length == 0) {
+            document.getElementById("searchQuizContainerContent").innerHTML = '<div><i style="font-size: 8rem;text-align: center;opacity: .5;width: 100%;" class="fab fa-searchengin"></i><br><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
         }
     }
     else {
         searchBar.style.display = "initial";
+        searchWrapper.style.zIndex = "0";
         document.getElementById("closesearchQuiz").click();
     }
 });

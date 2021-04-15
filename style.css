@@ -32,6 +32,11 @@
   background: #f9fcff;
 }
 
+#html {
+  background-image: url(./background.svg);
+  background-size: cover;
+}
+
 body {
   max-width: 99%;
 }
@@ -164,6 +169,9 @@ button:active {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: rgb(253, 253, 253);
+  background-image: url(./background.svg);
+  background-size: cover;
 }
 
 .col.recents {
@@ -219,7 +227,7 @@ button:active {
   border-radius: 0 0 0.75rem 0.75rem;
   transform: scale(1);
   transition: 0.1s all ease-in-out;
-  box-shadow: 0px 1px 10px #d1cdcd, -26px -26px 52px #ffffff;
+  box-shadow: 0px 1px 20px #d1cdcd, 0px 0px 10px #ffffff;
 }
 
 .recents.endQuiz {
@@ -230,7 +238,7 @@ button:active {
 
 @keyframes activeQuiz {
   50% {
-    box-shadow: 0px 3px 20px #ff8d8d;
+    box-shadow: 0px 3px 10px #ff8d8d, 0px 0px 10px #ff6868;
   }
 }
 
@@ -755,7 +763,7 @@ button:active {
 }
 
 .search-wrapper {
-  border-radius: 20px;
+  border-radius: 3rem;
   position: relative;
   background-color: rgb(250, 235, 255);
   padding: 0 12px 0 12px;
@@ -793,7 +801,7 @@ button:active {
   top: 70px;
   margin: auto auto 0 19.5vw;
   animation-name: heightIn;
-  animation-duration: .2s;
+  animation-duration: .3s;
 }
 
 @keyframes heightIn {
