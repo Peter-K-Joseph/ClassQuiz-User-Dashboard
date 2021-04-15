@@ -380,8 +380,8 @@ document.getElementById("search-index").addEventListener("input", () => {
         setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
         for (let i in userData.Quizzes.QuizzesData) {
             console.log(userData.Quizzes.QuizzesData[i].name);
-            if (userData.Quizzes.QuizzesData[i].name.match(/([searchBar.value])\w+/gi)) {
-                console.log(userData.Quizzes.QuizzesData[i].name.match(/([searchBar.value])\w+/i));
+            if (userData.Quizzes.QuizzesData[i].name.indexOf(searchBar.value) != -1) { //match(/([searchBar.value])\w+/gi).length == 2
+                console.log(userData.Quizzes.QuizzesData[i].name + " > PASSED");
             }
         }
     }

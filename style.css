@@ -792,4 +792,10 @@ button:active {
   height: 75vh;
   top: 70px;
   margin: auto auto 0 19.5vw;
+  animation-name: heightIn;
+  animation-duration: .2s;
+}
+
+@keyframes heightIn {
+  0%{height: 0vh;}
 }
