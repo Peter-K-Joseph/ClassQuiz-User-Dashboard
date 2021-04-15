@@ -257,7 +257,7 @@ class SettingsUpdate {
                 switch (moduleName) {
                     case "invertColors":
                         if (status == true) {
-                            document.getElementById("html").style.filter = "invert(1)"; 
+                            document.getElementById("html").style.filter = "invert(1)";
                             document.querySelector("button").style.filter = "invert(1)";
                             document.querySelector(".selectedNav").style.filter = "invert(1)";
                         } else
@@ -288,10 +288,6 @@ class SettingsUpdate {
 document.getElementById("sideNav_settings").addEventListener("click", () => {
     document.getElementById("accountInformation").style.display = "initial";
     setModal = new ActiveModal("Settings Modal", this.id, "account-information-highview", null, "open-settings", null, null, null, null);
-})
-
-document.getElementById("search_quiz_button").addEventListener("click", () => {
-    setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
 })
 
 //Load Quiz Function.
@@ -413,3 +409,16 @@ for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
         console.log(updateInfo);
     })
 }
+
+document.getElementById("search-index").addEventListener("input", () => {
+    const searchBar = document.getElementById("search-index");
+    const searchWrapper = document.getElementsByClassName("search-wrapper")[0];
+    if (searchBar.value !== "") {
+        searchWrapper.style.display = "relative";
+        searchWrapper.style.zIndex = "1";
+        setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
+    } else {
+        searchBar.style.display = "initial";
+        document.getElementById("closesearchQuiz").click();
+    }
+})

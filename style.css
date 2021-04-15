@@ -558,6 +558,7 @@ button:active {
 .btn.reset_acc {
   background-color: rgb(247, 247, 0);
   min-width: 120px;
+  color: rgb(49, 49, 49);
 }
 
 .password_entry {
@@ -755,6 +756,7 @@ button:active {
 
 .search-wrapper {
   border-radius: 20px;
+  position: relative;
   background-color: rgb(250, 235, 255);
   padding: 0 12px 0 12px;
   margin: 20px 3% 0 3%;
@@ -763,8 +765,8 @@ button:active {
   justify-content: space-between;
   align-items: center;
   width: 94%;
-  color: var(--light-font);
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
+  color: rgb(68, 68, 68);
+  box-shadow: 0 1px 6px rgba(95, 103, 117, 0.4), 0 12px 25px -24px rgba(57, 67, 88, 0.3); 
   overflow: hidden;
   transition: .2s all ease-in-out;
 }
@@ -776,14 +778,16 @@ button:active {
   height: 100%;
   padding: 0 20px;
   font-size: 16px;
-  background-color: var(--search-area-bg);
-  color: var(--main-color);
+  background-color: inherit;
+  color: inherit;
 }
 .search-input:placeholder {
   color: var(--main-color);
   opacity: 0.6;
 }
 
-.search-wrapper:focus, .search-wrapper:hover {
-  box-shadow: 0 2px 6px rgba(95, 103, 117, 0.4), 0 12px 20px -24px rgba(57, 67, 88, 0.3); 
+.search-modal{
+  width: 77vw;
+height: 75vh;
+margin: 8vh auto 0 19.5vw;
 }

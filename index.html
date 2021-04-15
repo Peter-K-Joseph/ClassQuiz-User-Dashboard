@@ -53,7 +53,7 @@
             </div>
             <div class="col mainDiv">
                 <div class="search-wrapper">
-                    <input class="search-input" type="text" placeholder="Search">
+                    <input class="search-input" type="search" id="search-index" name="search" placeholder="Search for a Quiz">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search"
                         viewBox="0 0 24 24">
@@ -306,12 +306,10 @@
         </div>
     </div>
     <div class="modal-background d-none" id="searchQuiz">
-        <div class="modal-Onscreen">
-            <div class="close" id="closesearchQuiz" parentModal="searchQuiz"><i class="fas fa-times"></i></div>
-            <h1 class="display-5 p-3">Search For Quiz</h1>
-            <input type="text" name="search-bar" id="search_bar" class="" placeholder="Type here to search for Quizzes">
-            <div class="container w-100 mt-2" id="searchQuizContainerContent"
-                style="display: flex;align-items: center;justify-content: center; height: 70vh">
+        <div class="modal-Onscreen search-modal">
+            <div class="close d-none" id="closesearchQuiz" parentModal="searchQuiz"><i class="fas fa-times"></i></div>
+            <div class="container w-100 h-100" id="searchQuizContainerContent"
+                style="display: flex;align-items: center;justify-content: center;">
             </div>
         </div>
     </div>
