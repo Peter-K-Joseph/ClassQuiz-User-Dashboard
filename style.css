@@ -801,9 +801,11 @@ button:active {
   top: 70px;
   margin: auto auto 0 19.5vw;
   animation-name: heightIn;
-  animation-duration: .3s;
+  animation-duration: 0.3s;
 }
 
 @keyframes heightIn {
-  0%{height: 0vh;}
+  0% {
+    height: 0vh;
+  }
 }

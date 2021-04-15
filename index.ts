@@ -418,14 +418,14 @@ document.getElementById("search-index").addEventListener("input", () => {
         searchWrapper.style.display = "relative";
         searchWrapper.style.zIndex = "1";
         setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
-        for (let i in userData.Quizzes.QuizzesData){
-            if (userData.Quizzes.QuizzesData[i].name.indexOf(searchBar.value) != -1){ //match(/([searchBar.value])\w+/gi).length == 2
-                 console.log(userData.Quizzes.QuizzesData[i].name + " > PASSED" );
-                 result.push(userData.Quizzes.QuizzesData[i].name);
+        for (let i in userData.Quizzes.QuizzesData) {
+            if (userData.Quizzes.QuizzesData[i].name.indexOf(searchBar.value) != -1) { //match(/([searchBar.value])\w+/gi).length == 2
+                console.log(userData.Quizzes.QuizzesData[i].name + " > PASSED");
+                result.push(userData.Quizzes.QuizzesData[i].name);
             }
         }
         console.log(result);
-        if (result.length == 0){
+        if (result.length == 0) {
             document.getElementById("searchQuizContainerContent").innerHTML = '<div><i style="font-size: 8rem;text-align: center;opacity: .5;width: 100%;" class="fab fa-searchengin"></i><br><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
         }
     } else {
