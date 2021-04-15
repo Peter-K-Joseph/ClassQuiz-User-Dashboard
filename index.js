@@ -378,6 +378,12 @@ document.getElementById("search-index").addEventListener("input", () => {
         searchWrapper.style.display = "relative";
         searchWrapper.style.zIndex = "1";
         setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
+        for (let i in userData.Quizzes.QuizzesData) {
+            console.log(userData.Quizzes.QuizzesData[i].name);
+            if (userData.Quizzes.QuizzesData[i].name.match(/([searchBar.value])\w+/gi)) {
+                console.log(userData.Quizzes.QuizzesData[i].name.match(/([searchBar.value])\w+/i));
+            }
+        }
     }
     else {
         searchBar.style.display = "initial";
