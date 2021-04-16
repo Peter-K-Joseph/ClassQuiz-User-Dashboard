@@ -19,6 +19,7 @@ let userData = {
     Email: "laura.aurora@runway.com",
     Organisation: "Runway Inc",
     ID: "3e41-85df-8r96-ds25-f87r",
+    DarkTheme: false,
     Quizzes: {
         QuizzesData: {
             0: {
@@ -129,7 +130,7 @@ function userVerificationServices() {
 }
 //Updating Components in DOM
 function updateSerices() {
-    $("#account_overview_info").append('<div class="account container m-0 p-0"><div class="profileImage" style="background-image: url(' + userData.Avatar_Image + ');"></div><div class="avatarName text-center h4 m-3 p-0 ">@' + userData.Avatar + '</div><div class="profileName text-center m-3 blockquote-footer">' + userData.Name.first + ' ' + userData.Name.last + '</div></div><button class="Logout">Logout</button>');
+    $("#account_overview_info").append('<div class="account container m-0 p-0"><div class="profileImage image" style="background-image: url(' + userData.Avatar_Image + ');"></div><div class="avatarName text-center h4 m-3 p-0 ">@' + userData.Avatar + '</div><div class="profileName text-center m-3 blockquote-footer">' + userData.Name.first + ' ' + userData.Name.last + '</div></div><button class="Logout">Logout</button>');
     document.getElementById("imgContainer").style.backgroundImage = `url(` + userData.Avatar_Image + `)`;
     for (const updateID in innerHTMLContent) {
         document.getElementById(`${updateID}`).innerHTML = `${innerHTMLContent[updateID]}`;
@@ -234,12 +235,13 @@ class SettingsUpdate {
                 switch (moduleName) {
                     case "invertColors":
                         if (status == true) {
-                            document.getElementById("html").style.filter = "invert(1)";
-                            document.querySelector("button").style.filter = "invert(1)";
-                            document.querySelector(".selectedNav").style.filter = "invert(1)";
+                            userData.DarkTheme = true;
+                            $("button, .image, body, .selectedNav").css("filter", "invert(1)");
                         }
-                        else
-                            document.getElementById("html").style.filter = document.querySelector("button").style.filter = document.querySelector(".selectedNav").style.filter = null;
+                        else {
+                            userData.DarkTheme = false;
+                            $(".image, button, .selectedNav, body").css("filter", null);
+                        }
                         break;
                     default:
                         break;
@@ -285,10 +287,10 @@ function settings() {
     let settingsNavigator = document.getElementsByClassName("settingsNav");
     for (let i = 0; i < settingsNavigator.length; i++) {
         setTimeout(() => {
-            document.getElementById(settingsNavigator[i].id).style.display = "none";
+            $(`#${settingsNavigator[i].id}`).css("display", "none");
         }, 500);
     }
-    setTimeout(() => { document.getElementById(this.getAttribute("trigger")).style.display = "initial"; }, 510);
+    setTimeout(() => { $(`#${this.getAttribute("trigger")}`).css("display", "initial"); }, 510);
 }
 //Event Lisetners for Modal closing
 //Selected all 
@@ -360,8 +362,11 @@ function verify_pass() {
 for (let i = 0; i < document.getElementsByClassName("settingOption").length; i++) {
     let classSelect = document.getElementsByClassName("settingOption");
     classSelect[i].addEventListener("click", () => {
+        if (userData.DarkTheme === true)
+            document.getElementsByClassName("selectedNav")[0].style.filter = null;
         document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
         classSelect[i].classList.add("selectedNav");
+        (userData.DarkTheme === true) ? document.querySelector(".selectedNav").style.filter = "invert(1)" : document.querySelector(".selectedNav").style.filter = null;
     });
 }
 for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
@@ -387,7 +392,7 @@ document.getElementById("search-index").addEventListener("input", () => {
         }
         console.log(result);
         if (result.length == 0) {
-            document.getElementById("searchQuizContainerContent").innerHTML = '<div><i style="font-size: 8rem;text-align: center;opacity: .5;width: 100%;" class="fab fa-searchengin"></i><br><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
+            document.getElementById("searchQuizContainerContent").innerHTML = '<div style="text-align: center"><img src="./search-error.svg"><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
         }
     }
     else {
