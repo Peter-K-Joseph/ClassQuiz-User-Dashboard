@@ -643,3 +643,4 @@ function timerUpdate() {
 }
 
 timerUpdate();
+//End of timer

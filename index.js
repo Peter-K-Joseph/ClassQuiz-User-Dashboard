@@ -594,3 +594,4 @@ function timerUpdate() {
     setTimeout(timerUpdate, 1000);
 }
 timerUpdate();
+//End of timer
