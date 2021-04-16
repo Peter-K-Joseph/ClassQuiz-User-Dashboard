@@ -27,17 +27,22 @@ let userData = {
             0: {
                 name: "Importance Of Life",
                 active: true,
+                participantCount: 10,
+                domain: {
+                    restricted: false,
+                    domain: null
+                },
                 paramID: "8e95d4-f565sd0f-as565s-asdd546a",
                 Starttime: {
-                    year: 2020,
-                    month: 1,
+                    year: 2021,
+                    month: 4,
                     day: 5,
                     hour: 13,
                     minute: 0
                 },
                 Endtime: {
-                    year: 2020,
-                    month: 1,
+                    year: 2021,
+                    month: 5,
                     day: 5,
                     hour: 13,
                     minute: 0
@@ -46,19 +51,24 @@ let userData = {
             1: {
                 name: "Physics 101",
                 active: false,
+                participantCount: 10,
+                domain: {
+                    restricted: true,
+                    domain: "christuniversity.in"
+                },
                 paramID: "asdf5d-asdf546-asdf65-aer66af",
                 Starttime: {
-                    year: 2020,
+                    year: 2021,
                     month: 1,
                     day: 5,
                     hour: 13,
                     minute: 0
                 },
                 Endtime: {
-                    year: 2020,
-                    month: 1,
+                    year: 2021,
+                    month: 6,
                     day: 5,
-                    hour: 14,
+                    hour: 0,
                     minute: 0
                 }
             },
@@ -66,15 +76,19 @@ let userData = {
                 name: "Startup 101",
                 active: false,
                 paramID: "asdf5d-asdf546-asdf65-aer66af",
+                domain: {
+                    restricted: true,
+                    domain: "christuniversity.in"
+                },
                 Starttime: {
-                    year: 2020,
+                    year: 2021,
                     month: 1,
                     day: 5,
                     hour: 13,
                     minute: 0
                 },
                 Endtime: {
-                    year: 2020,
+                    year: 2021,
                     month: 2,
                     day: 5,
                     hour: 14,
@@ -84,9 +98,14 @@ let userData = {
             3: {
                 name: "Chemistry 101",
                 active: false,
+                participantCount: 10,
+                domain: {
+                    restricted: false,
+                    domain: null
+                },
                 paramID: "asdf5d-asdhjd6-addf65-aer66dg",
                 Starttime: {
-                    year: 2020,
+                    year: 2021,
                     month: 1,
                     day: 5,
                     hour: 13,
@@ -103,16 +122,93 @@ let userData = {
             4: {
                 name: "Social Science 101",
                 active: true,
+                participantCount: 10,
+                domain: {
+                    restricted: false,
+                    domain: null
+                },
                 paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
                 Starttime: {
-                    year: 2020,
+                    year: 2021,
                     month: 1,
                     day: 5,
                     hour: 13,
                     minute: 0
                 },
                 Endtime: {
-                    year: 2020,
+                    year: 2021,
+                    month: 1,
+                    day: 5,
+                    hour: 13,
+                    minute: 0
+                }
+            },
+            5: {
+                name: "Social Science 101",
+                active: true,
+                participantCount: 10,
+                domain: {
+                    restricted: false,
+                    domain: null
+                },
+                paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                Starttime: {
+                    year: 2021,
+                    month: 1,
+                    day: 5,
+                    hour: 13,
+                    minute: 0
+                },
+                Endtime: {
+                    year: 2021,
+                    month: 1,
+                    day: 5,
+                    hour: 13,
+                    minute: 0
+                }
+            },
+            6: {
+                name: "Social Science 101",
+                active: true,
+                participantCount: 10,
+                domain: {
+                    restricted: false,
+                    domain: null
+                },
+                paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                Starttime: {
+                    year: 2021,
+                    month: 1,
+                    day: 5,
+                    hour: 13,
+                    minute: 0
+                },
+                Endtime: {
+                    year: 2021,
+                    month: 1,
+                    day: 5,
+                    hour: 13,
+                    minute: 0
+                }
+            },
+            7: {
+                name: "Social Science 101",
+                active: true,
+                participantCount: 10,
+                domain: {
+                    restricted: false,
+                    domain: null
+                },
+                paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                Starttime: {
+                    year: 2021,
+                    month: 1,
+                    day: 5,
+                    hour: 13,
+                    minute: 0
+                },
+                Endtime: {
+                    year: 2021,
                     month: 1,
                     day: 5,
                     hour: 13,
@@ -120,7 +216,7 @@ let userData = {
                 }
             }
         },
-        total: 5
+        total: 8
     }
 }
 
@@ -131,6 +227,14 @@ const innerHTMLContent = { emailInSettings: userData.Email, TFA_Mailer: userData
 //Verification Services checks if the user is legit while performing critical operations. Sends a request to hostIP/api/user?identifier=${userData.ID}
 function userVerificationServices() {
     return true;
+}
+
+//quizNum = specified quiz number and startTime tells wherter its a start time or end time
+function timingFunction(quizNum, startTime: true | false) {
+    if (startTime === true)
+        return new Date(userData.Quizzes.QuizzesData[quizNum].Starttime.year, userData.Quizzes.QuizzesData[quizNum].Starttime.month - 1, userData.Quizzes.QuizzesData[quizNum].Starttime.day, userData.Quizzes.QuizzesData[quizNum].Starttime.hour, userData.Quizzes.QuizzesData[quizNum].Starttime.minute, 0);
+    else
+        return new Date(userData.Quizzes.QuizzesData[quizNum].Endtime.year, userData.Quizzes.QuizzesData[quizNum].Endtime.month - 1, userData.Quizzes.QuizzesData[quizNum].Endtime.day, userData.Quizzes.QuizzesData[quizNum].Endtime.hour, userData.Quizzes.QuizzesData[quizNum].Endtime.minute, 0);
 }
 
 //Updating Components in DOM
@@ -317,7 +421,7 @@ function settings() {
             $(`#${settingsNavigator[i].id}`).css("display", "none")
         }, 500)
     }
-    setTimeout(() => { $(`#${this.getAttribute("trigger")}`).css("display", "initial");}, 510);
+    setTimeout(() => { $(`#${this.getAttribute("trigger")}`).css("display", "initial"); }, 510);
 }
 
 //Event Lisetners for Modal closing
@@ -335,7 +439,7 @@ function closeModal(i: number) {
     selectedID.classList.add("modal-deactive");
     setTimeout(() => {
         selectedID.classList.add("d-none");
-    }, 350)
+    }, 250)
 }
 
 function openFunctionModal() {
@@ -423,15 +527,42 @@ document.getElementById("search-index").addEventListener("input", () => {
         searchWrapper.style.display = "relative";
         searchWrapper.style.zIndex = "1";
         setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
+        $("#searchQuizContainerContent").html('');
+        let searchInput = new RegExp(searchBar.value, "i");
         for (let i in userData.Quizzes.QuizzesData) {
-            if (userData.Quizzes.QuizzesData[i].name.indexOf(searchBar.value) != -1) { //match(/([searchBar.value])\w+/gi).length == 2
-                console.log(userData.Quizzes.QuizzesData[i].name + " > PASSED");
-                result.push(userData.Quizzes.QuizzesData[i].name);
+            let currentSelection = userData.Quizzes.QuizzesData[i];
+            if (currentSelection.name.search(searchInput) != -1) {
+                result.push(currentSelection.name);
+                let button;
+                let domainInfo;
+                let timeSpecifier;
+                if (currentSelection.Endtime.minute === null && currentSelection.Endtime.hour === null && currentSelection.Endtime.day === null && currentSelection.Endtime.day === null && currentSelection.Endtime.month === null && currentSelection.Endtime.year === null)
+                    if (timingFunction(i, true) > new Date())
+                        timeSpecifier = `This Quiz has't started yet`;
+                    else
+                        timeSpecifier = `This Quiz can be accessed by anyone until you decide to end it`;
+                else {
+                    if (timingFunction(i, true) > new Date())
+                        timeSpecifier = `This Quiz has't started yet`;
+                    else if (timingFunction(i, false) < new Date())
+                        timeSpecifier = `Quiz was completed`;
+                    else if (timingFunction(i, false) > new Date() && timingFunction(i, true) < new Date()) {
+                        let remainingTime = Math.abs(timingFunction(i, false) - new Date());
+                        timeSpecifier = `This quiz is in progress and will complete in <span class="countDownTimer" timeRemaining=${remainingTime}></span>`;
+                        console.log(timeSpecifier);
+                    }
+                }
+                (currentSelection.active === true) ? button = `<button class="endQuiz searchIndex">Start Quiz</button>` : button = `<button class="startQuiz searchIndex">End Quiz</button>`;
+                (currentSelection.domain.restricted === true) ? domainInfo = `This quiz is restricted to participants whose email ends with ${currentSelection.domain.domain}` : domainInfo = "Anyone with the link can attempt the quiz";
+                $("#searchQuizContainerContent").append(`<div class="row nameOfMatch contentCenter"><div class="col-3" style="font-size: 1.5rem">${currentSelection.name}</div><div class="col">${domainInfo}<br>${timeSpecifier}</div><div class="col-2">${button}</div></div>`);
             }
         }
         console.log(result);
         if (result.length == 0) {
+            $("#searchQuizContainerContent").css("display", "flex");
             document.getElementById("searchQuizContainerContent").innerHTML = '<div style="text-align: center"><img src="./search-error.svg"><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
+        } else {
+            $("#searchQuizContainerContent").css("display", "block");
         }
     } else {
         searchBar.style.display = "initial";
@@ -439,3 +570,76 @@ document.getElementById("search-index").addEventListener("input", () => {
         document.getElementById("closesearchQuiz").click();
     }
 })
+
+//Update Timer in at places
+function timerToString(value) {
+    let givenNum = new Date(value);
+    let currentDate = new Date(0);
+    let timeSet: any = [5];
+    let returnString;
+    console.log({ givenNum, currentDate })
+
+    timeSet[0] = (givenNum.getFullYear() - currentDate.getFullYear());
+    timeSet[1] = (givenNum.getMonth() - currentDate.getMonth());
+    timeSet[2] = (givenNum.getDate() - currentDate.getDate());
+    timeSet[3] = (givenNum.getHours() - currentDate.getHours());
+    timeSet[4] = (givenNum.getMinutes() - currentDate.getMinutes());
+    timeSet[5] = (givenNum.getSeconds() - currentDate.getSeconds());
+
+    if (timeSet[5] == 1)
+        timeSet[5] = "and " + timeSet[5].toString() + " second ";
+    else if (timeSet[5] > 1)
+        timeSet[5] = "and " + timeSet[5].toString() + " seconds ";
+
+    if (timeSet[4] == 1)
+        timeSet[4] = timeSet[4].toString() + " minute ";
+    else if (timeSet[4] > 1)
+        timeSet[4] = timeSet[4].toString() + " minutes ";
+    else {
+        timeSet[3] = timeSet[3] - 1;
+        timeSet[4] = 60 + timeSet[4];
+        timeSet[4] = timeSet[4].toString() + " minutes ";
+    }
+
+    if (timeSet[3] == 1)
+        timeSet[3] = timeSet[3].toString() + " hour ";
+    else if (timeSet[3] > 1)
+        timeSet[3] = timeSet[3].toString() + " hours ";
+    else {
+        timeSet[2] = timeSet[2] - 1;
+        timeSet[3] = 24 + timeSet[3];
+        timeSet[3] = timeSet[3].toString() + " hours ";
+    }
+
+    if (timeSet[2] == 1)
+        timeSet[2] = timeSet[2].toString() + " day ";
+    else if (timeSet[2] > 1)
+        timeSet[2] = timeSet[2].toString() + " days ";
+
+    if (timeSet[1] == 1)
+        timeSet[1] = timeSet[1].toString() + " month ";
+    else if (timeSet[1] > 1)
+        timeSet[1] = timeSet[1].toString() + " months ";
+
+    if (timeSet[0] == 1)
+        timeSet[0] = timeSet[0] + " year ";
+    else if (timeSet[0] > 1)
+        timeSet[0] = timeSet[0] + " years ";
+
+    console.log(timeSet);
+    return timeSet[0] + timeSet[1] + timeSet[2] + timeSet[3] + timeSet[4] + timeSet[5];
+}
+
+function timerUpdate() {
+    let timerElem = document.getElementsByClassName("countDownTimer");
+    for (let i = 0; i < timerElem.length; i++) {
+        console.log(timerElem[i].getAttribute("timeRemaining"));
+        timerElem[i].innerHTML = timerToString(parseFloat(timerElem[i].getAttribute("timeRemaining")));
+        timerElem[i].setAttribute("timeRemaining", timerElem[i].getAttribute("timeRemaining") - 1000);
+        console.log(timerElem[i]);
+    }
+    console.log("Timer Updating...");
+    setTimeout(timerUpdate, 1000)
+}
+
+timerUpdate();
