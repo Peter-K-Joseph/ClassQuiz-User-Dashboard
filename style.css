@@ -169,9 +169,10 @@ button:active {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: rgb(253, 253, 253);
   background-image: url(./background.svg);
   background-size: cover;
+  background-color: rgba(253, 253, 253, 0.84);
+  background-blend-mode: color-burn;
 }
 
 .col.recents {
