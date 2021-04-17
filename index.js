@@ -512,7 +512,7 @@ document.getElementById("search-index").addEventListener("input", () => {
                 }
                 (currentSelection.active === true) ? button = `<button class="endQuiz searchIndex">Start Quiz</button>` : button = `<button class="startQuiz searchIndex">End Quiz</button>`;
                 (currentSelection.domain.restricted === true) ? domainInfo = `This quiz is restricted to participants whose email ends with ${currentSelection.domain.domain}` : domainInfo = "Anyone with the link can attempt the quiz";
-                $("#searchQuizContainerContent").append(`<div class="row nameOfMatch contentCenter"><div class="col-3" style="font-size: 1.5rem">${currentSelection.name}</div><div class="col">${domainInfo}<br>${timeSpecifier}</div><div class="col-2">${button}</div></div>`);
+                $("#searchQuizContainerContent").append(`<div class="row nameOfMatch contentCenter"><div class="col-3 searchIndex" style="font-size: 1.5rem">${currentSelection.name}</div><div class="col searchIndex">${domainInfo}<br>${timeSpecifier}</div><div class="col-2 searchIndex">${button}</div></div>`);
             }
         }
         if (result.length == 0) {
