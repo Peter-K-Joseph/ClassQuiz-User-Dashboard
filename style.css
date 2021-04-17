@@ -891,4 +891,8 @@ button:active {
     padding: 10px;
   }
 
+  .perfectMatch{
+    height: 100%;
+  }
+
 }
