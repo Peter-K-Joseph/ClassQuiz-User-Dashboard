@@ -253,7 +253,7 @@ function updateSerices() {
             }
         }
         else {
-            dateToDisplay = quizData.Starttime.day + "/" + quizData.Starttime.month + 1 + "/" + quizData.Starttime.year + " " + timeFormat(quizData.Starttime.hour, quizData.Starttime.minute) + "<br>" + quizData.Endtime.day + "/" + quizData.Endtime.month + 1 + "/" + quizData.Endtime.year + " " + timeFormat(quizData.Endtime.hour, quizData.Endtime.minute);
+            dateToDisplay = quizData.Starttime.day + "/" + (parseFloat(quizData.Starttime.month) + 1) + "/" + quizData.Starttime.year + " " + timeFormat(quizData.Starttime.hour, quizData.Starttime.minute) + "<br>" + quizData.Endtime.day + "/" + (parseFloat(quizData.Endtime.month) + 1) + "/" + quizData.Endtime.year + " " + timeFormat(quizData.Endtime.hour, quizData.Endtime.minute);
         }
         let append = '<div class="col col-4 recents" paramID="' + quizData.paramID + '"><div class="recentQuizContainer w-100 h-100" parentModal="displayActiveQuizDetails"><h1 class="recents h1">' + quizData.name + '</h1><p class="recents p">' + dateToDisplay + '</p></div><button class="recents ' + (quizData.active ? "endQuiz" : "startQuiz") + ' quizOptions" paramID="' + quizData.paramID + '">' + (quizData.active ? "End Quiz" : "Start Quiz") + '</button></div>';
         $("#next_up_recents").append(append);
@@ -549,6 +549,9 @@ function timerToString(value) {
         timeSet[5] = "and " + timeSet[5].toString() + " second ";
     else if (timeSet[5] > 1)
         timeSet[5] = "and " + timeSet[5].toString() + " seconds ";
+    else {
+        timeSet[5] = "and " + timeSet[5].toString() + " second ";
+    }
     if (timeSet[4] == 1)
         timeSet[4] = timeSet[4].toString() + " minute ";
     else if (timeSet[4] > 1)
@@ -575,10 +578,16 @@ function timerToString(value) {
         timeSet[1] = timeSet[1].toString() + " month ";
     else if (timeSet[1] > 1)
         timeSet[1] = timeSet[1].toString() + " months ";
+    else {
+        timeSet[1] = "";
+    }
     if (timeSet[0] == 1)
         timeSet[0] = timeSet[0] + " year ";
     else if (timeSet[0] > 1)
         timeSet[0] = timeSet[0] + " years ";
+    else {
+        timeSet[0] = "";
+    }
     console.log(timeSet);
     return timeSet[0] + timeSet[1] + timeSet[2] + timeSet[3] + timeSet[4] + timeSet[5];
 }
