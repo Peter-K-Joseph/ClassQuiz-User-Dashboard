@@ -1,8 +1,10 @@
 # ClassQuiz
 Interface for the Class Quiz Project
-
-<img src="https://user-images.githubusercontent.com/69970683/114732939-8d6bb700-9d60-11eb-9cff-5c270866d5b5.png" width="100%">
 <table>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/69970683/114732939-8d6bb700-9d60-11eb-9cff-5c270866d5b5.png" width="100%"></td>
+    <td><img src="https://user-images.githubusercontent.com/69970683/115099399-2d893200-9f53-11eb-84d8-3846b42b1e99.png" width="100%"></td>
+  </tr>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/69970683/115099359-f61a8580-9f52-11eb-8624-ef055c6bf21d.png" width="100%"></td>
     <td><img src="https://user-images.githubusercontent.com/69970683/114732870-7f1d9b00-9d60-11eb-8c55-ff2585c9f861.png" width="100%"></td>
