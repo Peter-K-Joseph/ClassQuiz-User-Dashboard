@@ -476,7 +476,6 @@ for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
     const element = document.getElementsByClassName("switch");
     element[i].addEventListener("change", () => {
         let updateInfo = new SettingsUpdate(element[i].id, element[i].checked, element[i].getAttribute("moduleName"), element[i].getAttribute("moduleExecutionPoint"));
-        console.log(updateInfo);
     });
 }
 document.getElementById("search-index").addEventListener("input", () => {
@@ -507,9 +506,8 @@ document.getElementById("search-index").addEventListener("input", () => {
                     else if (timingFunction(i, false) < new Date())
                         timeSpecifier = `Quiz was completed`;
                     else if (timingFunction(i, false) > new Date() && timingFunction(i, true) < new Date()) {
-                        let remainingTime = Math.abs(timingFunction(i, false) - new Date());
+                        let remainingTime = timingFunction(i, false) - new Date();
                         timeSpecifier = `This quiz is in progress and will complete in <span class="countDownTimer" timeRemaining=${remainingTime}></span>`;
-                        console.log(timeSpecifier);
                     }
                 }
                 (currentSelection.active === true) ? button = `<button class="endQuiz searchIndex">Start Quiz</button>` : button = `<button class="startQuiz searchIndex">End Quiz</button>`;
@@ -517,7 +515,6 @@ document.getElementById("search-index").addEventListener("input", () => {
                 $("#searchQuizContainerContent").append(`<div class="row nameOfMatch contentCenter"><div class="col-3" style="font-size: 1.5rem">${currentSelection.name}</div><div class="col">${domainInfo}<br>${timeSpecifier}</div><div class="col-2">${button}</div></div>`);
             }
         }
-        console.log(result);
         if (result.length == 0) {
             $("#searchQuizContainerContent").css("display", "flex");
             document.getElementById("searchQuizContainerContent").innerHTML = '<div style="text-align: center"><img src="./search-error.svg"><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
@@ -537,8 +534,6 @@ function timerToString(value) {
     let givenNum = new Date(value);
     let currentDate = new Date(0);
     let timeSet = [5];
-    let returnString;
-    console.log({ givenNum, currentDate });
     timeSet[0] = (givenNum.getFullYear() - currentDate.getFullYear());
     timeSet[1] = (givenNum.getMonth() - currentDate.getMonth());
     timeSet[2] = (givenNum.getDate() - currentDate.getDate());
@@ -550,7 +545,7 @@ function timerToString(value) {
     else if (timeSet[5] > 1)
         timeSet[5] = "and " + timeSet[5].toString() + " seconds ";
     else {
-        timeSet[5] = "and " + timeSet[5].toString() + " second ";
+        timeSet[5] = "";
     }
     if (timeSet[4] == 1)
         timeSet[4] = timeSet[4].toString() + " minute ";
@@ -588,18 +583,14 @@ function timerToString(value) {
     else {
         timeSet[0] = "";
     }
-    console.log(timeSet);
     return timeSet[0] + timeSet[1] + timeSet[2] + timeSet[3] + timeSet[4] + timeSet[5];
 }
 function timerUpdate() {
     let timerElem = document.getElementsByClassName("countDownTimer");
     for (let i = 0; i < timerElem.length; i++) {
-        console.log(timerElem[i].getAttribute("timeRemaining"));
         timerElem[i].innerHTML = timerToString(parseFloat(timerElem[i].getAttribute("timeRemaining")));
-        timerElem[i].setAttribute("timeRemaining", timerElem[i].getAttribute("timeRemaining") - 1000);
-        console.log(timerElem[i]);
+        timerElem[i].setAttribute("timeRemaining", (parseFloat(timerElem[i].getAttribute("timeRemaining")) - 1000).toString());
     }
-    console.log("Timer Updating...");
     setTimeout(timerUpdate, 1000);
 }
 timerUpdate();
