@@ -841,6 +841,23 @@ button:active {
   display: none;
 }
 
+.swal2-popup{
+  width: 400px;
+  border-radius: .75rem;
+  background-color: #fdf9f9ef;
+  /* animation: none; */
+  transition: 0.5s all ease-in-out;
+  height: 450px;
+}
+
+.badge {
+  font-size: .75rem;
+  color: #5e5c5c;
+  background-color: #eae9e9;
+  position: absolute;
+  margin: 10px 0;
+}
+
 @media screen and (max-width: 800px) {
 
   .col-2.leftNav{

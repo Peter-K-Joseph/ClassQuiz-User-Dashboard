@@ -1,12 +1,3 @@
-//Pre Function
-function timeFormat(hour, minute) {
-    let meridiem;
-    (hour >= 12) ? meridiem = "PM" : meridiem = "AM";
-    hour %= 12;
-    (hour == 0) ? hour = 12 : hour = hour;
-    (minute == 0) ? minute = "00" : minute = minute;
-    return hour + ":" + minute + " " + meridiem;
-}
 //System Initialisation
 //Contains all the dara in an object form so it's easier to reload the DOM
 let userData = {
@@ -31,6 +22,7 @@ let userData = {
                     domain: null
                 },
                 paramID: "8e95d4-f565sd0f-as565s-asdd546a",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 4,
@@ -42,7 +34,7 @@ let userData = {
                     year: 2021,
                     month: 5,
                     day: 5,
-                    hour: 13,
+                    hour: 14,
                     minute: 0
                 }
             },
@@ -55,6 +47,7 @@ let userData = {
                     domain: "christuniversity.in"
                 },
                 paramID: "asdf5d-asdf546-asdf65-aer66af",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 1,
@@ -74,6 +67,7 @@ let userData = {
                 name: "Startup 101",
                 active: false,
                 paramID: "asdf5d-asdf546-asdf65-aer66af",
+                response: 15,
                 domain: {
                     restricted: true,
                     domain: "christuniversity.in"
@@ -102,6 +96,7 @@ let userData = {
                     domain: null
                 },
                 paramID: "asdf5d-asdhjd6-addf65-aer66dg",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 1,
@@ -126,6 +121,7 @@ let userData = {
                     domain: null
                 },
                 paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 1,
@@ -150,6 +146,7 @@ let userData = {
                     domain: null
                 },
                 paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 1,
@@ -161,7 +158,7 @@ let userData = {
                     year: 2021,
                     month: 1,
                     day: 5,
-                    hour: 13,
+                    hour: 14,
                     minute: 0
                 }
             },
@@ -174,6 +171,7 @@ let userData = {
                     domain: null
                 },
                 paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 1,
@@ -185,7 +183,7 @@ let userData = {
                     year: 2021,
                     month: 1,
                     day: 5,
-                    hour: 13,
+                    hour: 14,
                     minute: 0
                 }
             },
@@ -198,6 +196,7 @@ let userData = {
                     domain: null
                 },
                 paramID: "8e95d4-f565shdd-kkd65s-hbdf546a",
+                response: 15,
                 Starttime: {
                     year: 2021,
                     month: 1,
@@ -209,7 +208,7 @@ let userData = {
                     year: 2021,
                     month: 1,
                     day: 5,
-                    hour: 13,
+                    hour: 14,
                     minute: 0
                 }
             }
@@ -217,53 +216,170 @@ let userData = {
         total: 8
     }
 };
+//Pre Function
+function timeFormat(hour, minute) {
+    let meridiem;
+    (hour >= 12) ? meridiem = "PM" : meridiem = "AM";
+    hour %= 12;
+    (hour == 0) ? hour = 12 : hour = hour;
+    (minute == 0) ? minute = "00" : minute = minute;
+    return hour + ":" + minute + " " + meridiem;
+}
 //Just to load the data in DOM.
 //Object by {Element's ID: The data it should represent}
 const innerHTMLContent = { emailInSettings: userData.Email, TFA_Mailer: userData.Email, Reset_Mailer: userData.Email, ShowFirstNameInSettingsModal: userData.Name.first, showLastNameInSettingsModal: userData.Name.last, userNameInSettings: "@" + userData.Avatar, userIdentifierInSettings: userData.ID, organisationDisplayInSettings: ((userData.Organisation == "") ? "none" : userData.Organisation) };
 //Verification Services checks if the user is legit while performing critical operations. Sends a request to hostIP/api/user?identifier=${userData.ID}
 function userVerificationServices() {
-    return true;
+    return false;
 }
+//Converts Server date and time to local date and time
 //quizNum = specified quiz number and startTime tells wherter its a start time or end time
 function timingFunction(quizNum, startTime) {
+    let date;
     if (startTime === true)
-        return new Date(userData.Quizzes.QuizzesData[quizNum].Starttime.year, userData.Quizzes.QuizzesData[quizNum].Starttime.month - 1, userData.Quizzes.QuizzesData[quizNum].Starttime.day, userData.Quizzes.QuizzesData[quizNum].Starttime.hour, userData.Quizzes.QuizzesData[quizNum].Starttime.minute, 0);
+        date = new Date(userData.Quizzes.QuizzesData[quizNum].Starttime.year, userData.Quizzes.QuizzesData[quizNum].Starttime.month - 1, userData.Quizzes.QuizzesData[quizNum].Starttime.day, userData.Quizzes.QuizzesData[quizNum].Starttime.hour, userData.Quizzes.QuizzesData[quizNum].Starttime.minute, 0);
     else
-        return new Date(userData.Quizzes.QuizzesData[quizNum].Endtime.year, userData.Quizzes.QuizzesData[quizNum].Endtime.month - 1, userData.Quizzes.QuizzesData[quizNum].Endtime.day, userData.Quizzes.QuizzesData[quizNum].Endtime.hour, userData.Quizzes.QuizzesData[quizNum].Endtime.minute, 0);
+        date = new Date(userData.Quizzes.QuizzesData[quizNum].Endtime.year, userData.Quizzes.QuizzesData[quizNum].Endtime.month - 1, userData.Quizzes.QuizzesData[quizNum].Endtime.day, userData.Quizzes.QuizzesData[quizNum].Endtime.hour, userData.Quizzes.QuizzesData[quizNum].Endtime.minute, 0);
+    date = date.toString().split(" ");
+    return new Date(date[0] + " " + date[1] + " " + date[2] + " " + date[3] + " " + date[4] + " GMT");
 }
 //Updating Components in DOM
 function updateSerices() {
+    $("#account_overview_info, #next_up_recents").html("");
     $("#account_overview_info").append('<div class="account container m-0 p-0"><div class="profileImage image" style="background-image: url(' + userData.Avatar_Image + ');"></div><div class="avatarName text-center h4 m-3 p-0 ">@' + userData.Avatar + '</div><div class="profileName text-center m-3 blockquote-footer">' + userData.Name.first + ' ' + userData.Name.last + '</div></div><button class="Logout">Logout</button>');
     document.getElementById("imgContainer").style.backgroundImage = `url(` + userData.Avatar_Image + `)`;
     for (const updateID in innerHTMLContent) {
         document.getElementById(`${updateID}`).innerHTML = `${innerHTMLContent[updateID]}`;
     }
     for (let i = 0; i < userData.Quizzes.total; i++) {
-        let dateToDisplay;
+        let dateToDisplay, quizStat, quizStattoDisplay;
         let quizData = userData.Quizzes.QuizzesData[i];
         if (quizData.active === true) {
+            quizStattoDisplay = "End Quiz";
+            quizStat = "endQuiz";
+        }
+        else {
+            const date = new Date(), init_TimeStart = timingFunction(i, true), init_TimeEnd = timingFunction(i, false);
+            if (date >= init_TimeStart && date <= init_TimeEnd) {
+                quizStat = "endQuiz";
+                quizStattoDisplay = "End Quiz";
+                quizData.active = true;
+            }
+            else {
+                quizStat = "startQuiz";
+                quizStattoDisplay = "Start Quiz";
+                quizData.active = false;
+            }
         }
         if (quizData.Endtime.day == null && quizData.Endtime.month == null && quizData.Endtime.year == null) {
             dateToDisplay = "No time limit";
         }
         else if (quizData.Starttime.day === quizData.Endtime.day && quizData.Starttime.month === quizData.Endtime.month && quizData.Starttime.year === quizData.Endtime.year) {
-            dateToDisplay = quizData.Starttime.day + "/" + quizData.Starttime.month + 1 + "/" + quizData.Starttime.year;
-            if (quizData.Starttime.hour == quizData.Endtime.hour && quizData.Starttime.minute == quizData.Endtime.minute) {
-                dateToDisplay = dateToDisplay + "<br>" + timeFormat(quizData.Starttime.hour, quizData.Starttime.minute) + " - " + timeFormat(quizData.Endtime.hour, quizData.Endtime.minute);
-            }
+            dateToDisplay = timingFunction(i, true).toDateString() + "<br>" + timeFormat(parseFloat(timingFunction(i, true).toTimeString().split(" ")[0].split(":")[0]), parseFloat(timingFunction(i, true).toTimeString().split(" ")[0].split(":")[1])) + " till " + timeFormat(parseFloat(timingFunction(i, false).toTimeString().split(" ")[0].split(":")[0]), parseFloat(timingFunction(i, false).toTimeString().split(" ")[0].split(":")[1]));
         }
         else {
-            dateToDisplay = quizData.Starttime.day + "/" + (parseFloat(quizData.Starttime.month) + 1) + "/" + quizData.Starttime.year + " " + timeFormat(quizData.Starttime.hour, quizData.Starttime.minute) + "<br>" + quizData.Endtime.day + "/" + (parseFloat(quizData.Endtime.month) + 1) + "/" + quizData.Endtime.year + " " + timeFormat(quizData.Endtime.hour, quizData.Endtime.minute);
+            dateToDisplay = timingFunction(i, true).toDateString() + "   " + timingFunction(i, true).toString().split("GMT")[0] + " to " + timingFunction(i, false).toString().split("GMT")[0];
         }
-        let append = '<div class="col col-4 recents" paramID="' + quizData.paramID + '"><div class="recentQuizContainer w-100 h-100" parentModal="displayActiveQuizDetails"><h1 class="recents h1">' + quizData.name + '</h1><p class="recents p">' + dateToDisplay + '</p></div><button class="recents ' + (quizData.active ? "endQuiz" : "startQuiz") + ' quizOptions" paramID="' + quizData.paramID + '">' + (quizData.active ? "End Quiz" : "Start Quiz") + '</button></div>';
+        let append = '<div class="col col-4 recents" paramID="' + quizData.paramID + '"><div class="recentQuizContainer w-100 h-100" parentModal="displayActiveQuizDetails"><h1 class="recents h1">' + quizData.name + '</h1><p class="recents p">' + dateToDisplay + '</p></div><button class="recents ' + quizStat + ' quizOptions" JSONid="' + i + '" paramID="' + quizData.paramID + '">' + quizStattoDisplay + '</button></div>';
         $("#next_up_recents").append(append);
+        for (let i = 0; i < document.getElementsByClassName("quizOptions").length; i++) {
+            document.getElementsByClassName("quizOptions")[i].addEventListener("click", alertMode);
+        }
     }
+    // setTimeout(updateSerices, 60000);
 }
 updateSerices();
 //End of system init
 let paramID; //Parameter ID or quiz_identifier
 let setModal; //Used to call modal or alert box to DOM. Classes contain "open-alertBox", "open-fullPage", "open-settings", "show-alert".
 //Modal Controller Class Module
+class AlertBox {
+    constructor(title, content, Call_this_when_accept_pressed, Call_this_when_reject_pressed, Show_this_favicon_in_the_modal, customID, displayAcceptButton, displayRejectButton, value_to_display_in_accept_button, value_to_display_in_reject_button) {
+        let icons = {
+            alert: `<i class="fas fa-exclamation-triangle activateQuizAlert"></i>`,
+            danger: `<i class="fas fa-exclamation-circle activateQuizAlert"></i>`,
+            radioactive: `<i class="fas fa-radiation-alt activateQuizAlert"></i>`,
+            info: `<i class="fas fa-info-circle activateQuizAlert"></i>`,
+            question: `<i class="fas fa-question activateQuizAlert"></i>`
+        };
+        this.title = title;
+        this.content = content;
+        this.AcceptButtonFunctionCall = Call_this_when_accept_pressed;
+        this.RejectButtonFunctionCall = Call_this_when_reject_pressed;
+        switch (Show_this_favicon_in_the_modal) {
+            case "alert":
+                this.iconOnDisplay = icons.alert;
+                break;
+            case "danger":
+                this.iconOnDisplay = icons.danger;
+                break;
+            case "radioactive":
+                this.iconOnDisplay = icons.radioactive;
+                break;
+            case "info":
+                this.iconOnDisplay = icons.info;
+                break;
+            case "question":
+                this.iconOnDisplay = icons.radioactive;
+                break;
+            default:
+                this.iconOnDisplay = Show_this_favicon_in_the_modal;
+                break;
+        }
+        (customID === null || customID == "") ? this.customModalID = Math.random().toString(16).substr(2, 8) : this.customModalID = customID;
+        (displayAcceptButton === null || displayAcceptButton == true) ? this.displayAcceptButton = true : this.displayAcceptButton = false;
+        (displayRejectButton === null || displayRejectButton == true) ? this.displayRejectButton = true : this.displayRejectButton = false;
+        (value_to_display_in_accept_button === null || value_to_display_in_accept_button == "") ? this.value_to_display_in_accept_button = "Yes" : this.value_to_display_in_accept_button = value_to_display_in_accept_button;
+        (value_to_display_in_reject_button === null || value_to_display_in_reject_button == "") ? this.value_to_display_in_reject_button = "No" : this.value_to_display_in_reject_button = value_to_display_in_reject_button;
+        this.create();
+    }
+    closeActiveAlert(IDoftheAlertBox) {
+        document.getElementById(IDoftheAlertBox).classList.add("modal-deactive");
+        setTimeout(() => {
+            $("#" + IDoftheAlertBox).remove();
+        }, 250);
+    }
+    create() {
+        if (this.title != "" && this.content != "") {
+            let State = { yes: "", no: "" };
+            if (this.displayAcceptButton === true)
+                State.yes = `<button class="btn btn-success w-4 m-2 me-3" onclick="${this.AcceptButtonFunctionCall}" id="${this.customModalID}_btn-yes">${this.value_to_display_in_accept_button}</button>`;
+            if (this.displayRejectButton === true)
+                State.no = `<button class="btn btn-danger w-4 m-2 me-3" onclick="${this.RejectButtonFunctionCall}" id="${this.customModalID}_btn-no">${this.value_to_display_in_reject_button}</button>`;
+            let alert = `
+            <div class="modal-background" id="${this.customModalID}">
+                <div class="modal-Onscreen sq-3">
+                    <div class="close" id="close${this.customModalID}" parentModal="${this.customModalID}"><i class="fas fa-times"></i></div>
+                    <div class="container">
+                        <div class="activateQuizAlert">${this.iconOnDisplay}</div>
+                        <h3 class="text-center">${this.title}</h3>
+                        <p class="text-center lead m-3">${this.content}</p>
+                        ${State.no}
+                        ${State.yes}
+                    </div>
+                </div>
+            </div>`;
+            $("body").append(alert);
+            document.getElementById(this.customModalID).style.zIndex = "3";
+            document.getElementById(`${this.customModalID}_btn-no`).addEventListener("click", () => {
+                this.closeActiveAlert(`${this.customModalID}`);
+            });
+            document.getElementById(`close${this.customModalID}`).addEventListener("click", () => {
+                this.closeActiveAlert(`${this.customModalID}`);
+            });
+            document.getElementById(`${this.customModalID}_btn-yes`).addEventListener("click", () => {
+                this.closeActiveAlert(`${this.customModalID}`);
+            });
+            console.log(`Alert Box with ID ${this.customModalID} was created. Close Alert Box events will fire once a button is pressed`);
+        }
+        else {
+            console.warn("[nuvie => ALERTBOX] Argument Expects atleast one parameter (title,content)");
+        }
+    }
+    modalID(modalID) {
+        throw new Error("Method not implemented.");
+    }
+}
 class ActiveModal {
     //Contrustor Init: Code Loads and saves necessary data about the modal itself
     constructor(modalType, modalID, modalParentClass, modalClose, method, alertBox_title, alertBox_context, alertBox_customYesClass, alertBox_customNoClass) {
@@ -416,24 +532,48 @@ function openFunctionModal() {
     setModal = new ActiveModal("Alert Box", this.id, this.getAttribute("parentModal"), null, "open-fullPage", null, null, null, null);
     loadQuizData();
 }
+//DISPLAYING ALERTBOX FOR STARTQUIZ AND ENDQUIZ
 function alertMode() {
-    let cache = ["Heading", "Context"];
+    let cache = ["Heading", "Context", "Function"];
     paramID = this.getAttribute("paramID");
     if (this.classList[1] == "startQuiz") {
         cache[0] = 'Start Quiz?';
         cache[1] = 'Would you like to start the quiz now? Press Yes if you\'d wish to start the quiz';
+        cache[2] = `swtichQuizState(true, ${this.getAttribute("jsonid")})`;
     }
     else {
         cache[0] = 'End Quiz?';
         cache[1] = 'Would you like to end the quiz now? Press Yes if you\'d wish to close quiz';
+        cache[2] = `swtichQuizState(false, ${this.getAttribute("jsonid")})`;
     }
-    setModal = new ActiveModal("Full Screen Modal", "activateQuiz", "activateQuiz", null, "open-alertBox", cache[0], cache[1], null, null);
+    new AlertBox(cache[0], cache[1], cache[2], null, "alert", null, true, true, null, null);
+}
+function swtichQuizState(input, jsonID) {
+    console.log(jsonID);
+    let currentSelection = userData.Quizzes.QuizzesData[jsonID];
+    let currentTime = new Date();
+    if (input === true) {
+        new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Quiz Started", null, "bg-green", null);
+        currentSelection.active = true;
+        currentSelection.Starttime.day = currentTime.getUTCDate();
+        currentSelection.Starttime.month = currentTime.getUTCMonth();
+        currentSelection.Starttime.year = currentTime.getUTCFullYear();
+        currentSelection.Starttime.hour = currentTime.getUTCHours();
+        currentSelection.Starttime.minute = currentTime.getUTCMinutes();
+    }
+    else {
+        new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Quiz Ended", null, "bg-green", null);
+        currentSelection.active = false;
+        currentSelection.Endtime.day = currentTime.getUTCDate();
+        currentSelection.Endtime.month = currentTime.getUTCMonth();
+        currentSelection.Endtime.year = currentTime.getUTCFullYear();
+        currentSelection.Endtime.hour = currentTime.getUTCHours();
+        currentSelection.Endtime.minute = currentTime.getUTCMinutes();
+    }
+    updateSerices(); // Updates DOM data from server Userdata object
 }
 for (let i = 0; i < document.getElementsByClassName("close").length; i++) {
     document.getElementsByClassName("close")[i].addEventListener("click", () => { closeModal(i); });
-}
-for (let i = 0; i < document.getElementsByClassName("quizOptions").length; i++) {
-    document.getElementsByClassName("quizOptions")[i].addEventListener("click", alertMode);
 }
 for (let i = 0; i < document.getElementsByClassName("recentQuizContainer").length; i++) {
     document.getElementsByClassName("recentQuizContainer")[i].addEventListener("click", openFunctionModal);
@@ -510,7 +650,7 @@ document.getElementById("search-index").addEventListener("input", () => {
                         timeSpecifier = `This quiz is in progress and will complete in <span class="countDownTimer" timeRemaining=${remainingTime}></span>`;
                     }
                 }
-                (currentSelection.active === true) ? button = `<button class="endQuiz searchIndex">Start Quiz</button>` : button = `<button class="startQuiz searchIndex">End Quiz</button>`;
+                (currentSelection.active === true) ? button = `<button class="endQuiz searchIndex">End Quiz</button>` : button = `<button class="startQuiz searchIndex">Start Quiz</button>`;
                 (currentSelection.domain.restricted === true) ? domainInfo = `This quiz is restricted to participants whose email ends with ${currentSelection.domain.domain}` : domainInfo = "Anyone with the link can attempt the quiz";
                 $("#searchQuizContainerContent").append(`<div class="row nameOfMatch contentCenter"><div class="col-3 searchIndex" style="font-size: 1.5rem">${currentSelection.name}</div><div class="col searchIndex">${domainInfo}<br>${timeSpecifier}</div><div class="col-2 searchIndex">${button}</div></div>`);
             }
