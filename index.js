@@ -716,6 +716,7 @@ document.getElementById("goto_createQuiz").addEventListener("click", () => {
     document.getElementById("window_for_new_quiz").classList.remove("d-none");
     document.getElementById("goto_createQuiz").classList.add("d-none");
     document.getElementById("goto_mainDash").classList.remove("d-none");
+    new QuizInit();
 });
 document.getElementById("goto_mainDash").addEventListener("click", () => {
     document.getElementById("window_for_new_quiz").classList.add("d-none");
@@ -736,3 +737,29 @@ function delete_acc() {
     throw new Error("Function not implemented.");
 }
 //End of timer
+class QuizInit {
+    constructor() {
+        this.nameOfQuiz();
+    }
+    nameOfQuiz() {
+        document.getElementById("newQuizName").autofocus = true;
+        document.getElementById("newQuizName").addEventListener("input", () => {
+            this.quizName = document.getElementById("newQuizName").value;
+            let IDSelector = document.getElementById("name_the_quiz");
+            if (this.quizName != "") {
+                IDSelector.innerHTML = `Name Quiz as ${this.quizName}`;
+                IDSelector.disabled = false;
+                IDSelector.addEventListener("click", () => {
+                    document.getElementById("indicator_1").classList.remove("selected");
+                    document.getElementById("indicator_2").classList.add("selected");
+                });
+            }
+            else {
+                IDSelector.innerHTML = `Type a name`;
+                IDSelector.disabled = true;
+                document.getElementById("indicator_1").classList.add("selected");
+                document.getElementById("indicator_2").classList.remove("selected");
+            }
+        });
+    }
+}

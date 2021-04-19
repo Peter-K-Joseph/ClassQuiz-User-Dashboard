@@ -619,9 +619,20 @@ button:active {
   color: rgb(247, 243, 243);
 }
 
+.btn-red {
+  background-color: rgb(255, 28, 28);
+  color: rgb(247, 243, 243);
+}
+
 .bg-green {
   background-color: rgb(0, 155, 0);
   color: rgb(247, 243, 243);
+}
+
+.btn-green {
+  background-color: rgb(94, 255, 94);
+  color: rgb(247, 243, 243);
+  color: rgb(59, 59, 59)
 }
 
 .bg-blue {
@@ -631,9 +642,20 @@ button:active {
 
 .col.createQuizData{
   width: 100%;
-  background-color: #f5f6fa;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1636%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='url(%23SvgjsLinearGradient1637)'%3e%3c/rect%3e%3cpath d='M1920 0L1317.12 0L1920 261.23z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M1317.12 0L1920 261.23L1920 439.05L874.53 0z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M874.53 0L1920 439.05L1920 707.79L856.6999999999999 0z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M856.7 0L1920 707.79L1920 835.8499999999999L304.6 0z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M0 1080L912.78 1080L0 969.72z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M0 969.72L912.78 1080L1040.6299999999999 1080L0 838.5500000000001z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M0 838.55L1040.6299999999999 1080L1351.1899999999998 1080L0 349.78z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M0 349.78L1351.1899999999998 1080L1596.7499999999998 1080L0 109.03999999999996z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1636'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='10.94%25' y1='-19.44%25' x2='89.06%25' y2='119.44%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1637'%3e%3cstop stop-color='rgba(124%2c 182%2c 242%2c 1)' offset='0.01'%3e%3c/stop%3e%3cstop stop-color='rgba(96%2c 165%2c 255%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+  background-color: #5628EE;
+  background-image: linear-gradient(to left top, #5628EE, hsl(214, 85%, 55%));
   background-size: cover;
+  animation-name: coverIn;
+  animation-duration: .5s;
+}
+
+.createConfirm{
+  width: 100px;
+  margin: 10px;
+}
+
+@keyframes coverIn {
+  0% {opacity: 0; width: 0vw; transform: scale(0);}
 }
 
 .message{
@@ -646,6 +668,11 @@ box-shadow: 0px 0px 10px 0px rgb(212, 209, 209);;
 
 .mx-4.CreateQuizStartMessage {
   font-family: 'Roboto', sans-serif;
+  font-size: 3rem;
+    color: #f4faff;
+    text-align: initial;
+    margin: 0 0 3rem 0;
+    opacity: .8;
 }
 
 /* Input Element */
@@ -771,21 +798,6 @@ box-shadow: 0px 0px 10px 0px rgb(212, 209, 209);;
   }
   input[type="checkbox"].switch:disabled:not(:checked):after {
     opacity: 0.6;
-  }
-
-  input[type="radio"] {
-    border-radius: 50%;
-  }
-  input[type="radio"]:after {
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    background: var(--active-inner);
-    opacity: 0;
-    transform: scale(var(--s, 0.7));
-  }
-  input[type="radio"]:checked {
-    --s: 0.5;
   }
 }
 
@@ -972,6 +984,7 @@ box-shadow: 0px 0px 10px 0px rgb(212, 209, 209);;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
   border: 0;
   outline: 0;
+  font-size: 1.3em;
   padding: 15px 18px;
 }
 
@@ -986,6 +999,7 @@ box-shadow: 0px 0px 10px 0px rgb(212, 209, 209);;
   margin: 10px;
   transition: all 200ms ease-in;
   cursor: pointer;
+  max-width: 40%;
 }
 .button--primary {
   background: #7f8ff4;
@@ -1000,4 +1014,30 @@ box-shadow: 0px 0px 10px 0px rgb(212, 209, 209);;
 .button--primary:active {
   background: #7f8ff4;
   box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.parent.indicator {
+  background-color: rgba(85, 85, 85, 0.0);
+  border-radius: 1.75rem;
+  position: absolute;
+  bottom: 20px;
+  width: 50%;
+  height: 10px;
+  left: 35%;
+}
+
+.indicator.circle {
+  width: 10px;
+    height: 10px;
+    background-color: #2e2e2e63;
+    border-radius: 50%;
+    margin: auto 4%;
+    display: inline-flex;
+    transition: .3s all ease-out;
+}
+
+.indicator.circle.selected {
+  transform: scale(1.5);
+  background-color: #cfcfcf;
+  transition: .3s all ease-in;
 }
