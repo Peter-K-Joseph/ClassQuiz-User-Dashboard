@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div class="loader">
+    <div class="loader" style="display: none">
         <div>
             <h1 class="display-1">ClassQuiz</h1>
             <h6 class="text-center">By nuvie</h6>
@@ -42,7 +42,8 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="createQuiz"><i class="fas fa-plus newQuizIcon"></i>&nbsp;&nbsp;Create a Quiz</div>
+                    <div class="createQuiz" id="goto_createQuiz"><i class="fas fa-plus newQuizIcon"></i>&nbsp;&nbsp;Create a Quiz</div>
+                    <div class="go-back d-none" id="goto_mainDash"><i class="fas fa-chevron-left"></i>&nbsp;&nbsp;Go back</div>
                     <div class="subMenu">
                         <ul>
                             <li class="sideNav selected">Home</li>
@@ -55,7 +56,7 @@
                 <div class="account col" id="account_overview_info">
                 </div>
             </div>
-            <div class="col mainDiv">
+            <div class="col mainDiv" id="dashboard">
                 <div class="search-wrapper">
                     <input class="search-input" value="" type="search" id="search-index" name="search"
                         placeholder="Search for a Quiz">
@@ -76,6 +77,16 @@
                         </div>
                     </div>
                     <hr>
+                </div>
+            </div>
+            <div class="col createQuizData d-none" id="window_for_new_quiz">
+                <h1 class="mx-3 mt-3 display-4 newQuizTemp">Create a new Quiz</h1>
+                <h4 class="mx-4 CreateQuizStartMessage">Before we start, let's name you quiz. What do you want to call it?</h4>
+                <div class="container contentCenter createQuizTitleImport">
+                    <div class="w-100 text-center">
+                        <input type="text" class="w-50 createQuizTitleImport" name="" id="newQuizName"><br>
+                        <button type="button" class="button button--primary button--inside">Send</button>
+                    </div>
                 </div>
             </div>
         </div>

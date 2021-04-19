@@ -775,6 +775,20 @@ function timerToString(value) {
     return timeSet[0] + timeSet[1] + timeSet[2] + timeSet[3] + timeSet[4] + timeSet[5];
 }
 
+document.getElementById("goto_createQuiz").addEventListener("click", ()=>{
+    document.getElementById("dashboard").classList.add("d-none");
+    document.getElementById("window_for_new_quiz").classList.remove("d-none");
+    document.getElementById("goto_createQuiz").classList.add("d-none");
+    document.getElementById("goto_mainDash").classList.remove("d-none");
+})
+
+document.getElementById("goto_mainDash").addEventListener("click", ()=>{
+    document.getElementById("window_for_new_quiz").classList.add("d-none");
+    document.getElementById("dashboard").classList.remove("d-none");
+    document.getElementById("goto_mainDash").classList.add("d-none");
+    document.getElementById("goto_createQuiz").classList.remove("d-none");
+})
+
 function timerUpdate() {
     let timerElem = document.getElementsByClassName("countDownTimer");
     for (let i = 0; i < timerElem.length; i++) {

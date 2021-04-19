@@ -92,12 +92,25 @@ button {
   box-shadow: 0px 0px 15px #97979771;
 }
 
-.createQuiz:hover {
+.go-back {
+  background: #6c7ff2;
+  color: #fcfcfc;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 50px;
+  transition: 0.05s all ease-in;
+  cursor: pointer;
+  box-shadow: 0px 0px 15px #97979771;
+}
+
+.createQuiz:hover, .go-back:hover {
   transition: 0.2s all ease-in-out;
   box-shadow: 0px 0px 10px #ebebeb;
 }
 
-.createQuiz:active {
+.createQuiz:active, .go-back:active {
   transition: 0.08s all ease-in;
   transform: scale(0.95);
 }
@@ -170,7 +183,6 @@ button:active {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1048%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(196%2c 225%2c 255%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c578.82C108.052%2c578.538%2c157.753%2c440.649%2c233.958%2c364.046C292.639%2c305.058%2c355.585%2c253.584%2c395.933%2c180.817C438.949%2c103.238%2c478.09%2c20.503%2c473.569%2c-68.089C468.834%2c-160.874%2c431.799%2c-251.228%2c370.332%2c-320.894C309.152%2c-390.235%2c221.59%2c-426.476%2c133.249%2c-453.806C43.853%2c-481.463%2c-47.264%2c-485.087%2c-140.64%2c-478.974C-257.147%2c-471.347%2c-406.917%2c-506.768%2c-477.572%2c-413.818C-549.454%2c-319.255%2c-465.74%2c-183.714%2c-455%2c-65.419C-446.99%2c22.812%2c-462.824%2c114.065%2c-422.485%2c192.943C-383.007%2c270.137%2c-298.763%2c306.797%2c-234.744%2c365.269C-155.023%2c438.083%2c-107.969%2c579.102%2c0%2c578.82' fill='%236ab3ff'%3e%3c/path%3e%3cpath d='M1440 1134.951C1547.264 1116.479 1651.973 1091.1219999999998 1742.397 1030.539 1831.612 970.7660000000001 1891.664 883.011 1950.307 793.049 2018.539 688.376 2122.298 587.896 2112.116 463.36400000000003 2101.889 338.28999999999996 1987.79 250.921 1898.749 162.49200000000002 1815.501 79.81599999999997 1728.35-6.6299999999999955 1613.714-31.615999999999985 1502.283-55.90300000000002 1393.409-3.4809999999999945 1283.934 28.488000000000056 1174.287 60.50799999999998 1060.973 82.44099999999997 973.126 155.452 875.593 236.51299999999998 790.916 339.06100000000004 761.752 462.483 731.364 591.086 756.406 726.9300000000001 809.494 847.942 863.09 970.111 940.918 1092.382 1062.338 1147.653 1179.347 1200.9160000000002 1313.3029999999999 1156.77 1440 1134.951' fill='white'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1048'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
   background-size: cover;
   background-attachment: fixed;
@@ -617,6 +629,25 @@ button:active {
   color: white;
 }
 
+.col.createQuizData{
+  width: 100%;
+  background-color: #f5f6fa;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1636%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='url(%23SvgjsLinearGradient1637)'%3e%3c/rect%3e%3cpath d='M1920 0L1317.12 0L1920 261.23z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M1317.12 0L1920 261.23L1920 439.05L874.53 0z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M874.53 0L1920 439.05L1920 707.79L856.6999999999999 0z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M856.7 0L1920 707.79L1920 835.8499999999999L304.6 0z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M0 1080L912.78 1080L0 969.72z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M0 969.72L912.78 1080L1040.6299999999999 1080L0 838.5500000000001z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M0 838.55L1040.6299999999999 1080L1351.1899999999998 1080L0 349.78z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M0 349.78L1351.1899999999998 1080L1596.7499999999998 1080L0 109.03999999999996z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1636'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='10.94%25' y1='-19.44%25' x2='89.06%25' y2='119.44%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1637'%3e%3cstop stop-color='rgba(124%2c 182%2c 242%2c 1)' offset='0.01'%3e%3c/stop%3e%3cstop stop-color='rgba(96%2c 165%2c 255%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+  background-size: cover;
+}
+
+.message{
+background-color: rgb(248, 248, 242);
+width: 100%;
+height: 85%;
+border-radius: .75rem;
+box-shadow: 0px 0px 10px 0px rgb(212, 209, 209);;
+}
+
+.mx-4.CreateQuizStartMessage {
+  font-family: 'Roboto', sans-serif;
+}
+
 /* Input Element */
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type="checkbox"],
@@ -863,6 +894,20 @@ button:active {
   margin: 10px 0;
 }
 
+.container.contentCenter.createQuizTitleImport{
+  height: 70%;
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+#newQuizName {
+  padding: 3px 10px;
+  text-align: center;
+}
+
 @media screen and (max-width: 800px) {
 
   .col-2.leftNav{
@@ -917,4 +962,42 @@ button:active {
     height: 100%;
   }
 
+}
+
+#newQuizName {
+  width: 40%;
+  background: #fff;
+  color: #6b6b6b;
+  font: inherit;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 0;
+  outline: 0;
+  padding: 15px 18px;
+}
+
+.button {
+  display: inline-block;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  margin: 10px;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+}
+.button--primary {
+  background: #7f8ff4;
+  color: #fff;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 12px 36px;
+}
+.button--primary:hover {
+  background: #6c7ff2;
+}
+.button--primary:active {
+  background: #7f8ff4;
+  box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
 }
