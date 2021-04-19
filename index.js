@@ -361,6 +361,7 @@ class AlertBox {
             </div>`;
             $("body").append(alert);
             document.getElementById(this.customModalID).style.zIndex = "3";
+            document.getElementById(`${this.customModalID}_btn-no`).focus = true;
             document.getElementById(`${this.customModalID}_btn-no`).addEventListener("click", () => {
                 this.closeActiveAlert(`${this.customModalID}`);
             });
@@ -382,34 +383,15 @@ class AlertBox {
 }
 class ActiveModal {
     //Contrustor Init: Code Loads and saves necessary data about the modal itself
-    constructor(modalType, modalID, modalParentClass, modalClose, method, alertBox_title, alertBox_context, alertBox_customYesClass, alertBox_customNoClass) {
+    constructor(modalType, modalID, modalParentClass, modalClose, method, alertBox_title, alertBox_context, alertBox_class) {
         this.modalType = modalType;
         this.modalID = modalID;
         this.modalParentClass = modalParentClass;
         this.modalClose = modalClose;
-        if (alertBox_customYesClass === null) {
-            alertBox_customYesClass == this.modalID + "_btn-yes";
-        }
-        if (alertBox_customNoClass === null) {
-            alertBox_customNoClass == this.modalID + "_btn-no";
-        }
-        this.alert_btnClass = { Yes: alertBox_customYesClass, No: alertBox_customNoClass };
-        this.modalAction(method, alertBox_title, alertBox_context, this.alert_btnClass);
+        this.modalAction(method, alertBox_title, alertBox_context, alertBox_class);
     }
-    modalAction(method, alertBox_title, alertBox_context, alert_btnClass) {
+    modalAction(method, alertBox_title, alertBox_context, alertBox_class) {
         switch (method) {
-            case "open-alertBox":
-                if (alertBox_title != "" && alertBox_context != "") {
-                    document.getElementById(this.modalID).style.zIndex = "3";
-                    document.getElementById(this.modalID + "_alertHeading").innerHTML = alertBox_title;
-                    document.getElementById(this.modalID + "_alertText").innerHTML = alertBox_context;
-                    document.getElementById("activateQuiz").classList.remove("modal-deactive", "d-none");
-                }
-                else {
-                    console.warn("[ALERTBOX-MODAL] Argument Expects atleast one parameter (title,content)");
-                }
-                document.getElementById("activateQuiz").classList.remove("modal-deactive", "d-none");
-                break;
             case "open-fullPage":
                 document.getElementById(this.modalParentClass + "ContainerContent").innerHTML = `<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`;
                 document.getElementById(this.modalParentClass).classList.remove("modal-deactive", "d-none");
@@ -422,10 +404,10 @@ class ActiveModal {
             case "show-alert":
                 document.getElementById("text_smallAlert").innerHTML = alertBox_title;
                 document.getElementById("smallAlert").classList.add("show");
-                if (alert_btnClass.Yes != null) {
-                    document.getElementById("smallAlert").classList.add(alert_btnClass.Yes);
+                if (alertBox_class != null) {
+                    document.getElementById("smallAlert").classList.add(alertBox_class);
                     setTimeout(() => {
-                        document.getElementById("smallAlert").classList.remove(alert_btnClass.Yes);
+                        document.getElementById("smallAlert").classList.remove(alertBox_class);
                     }, 1500);
                 }
                 setTimeout(() => {
@@ -472,7 +454,7 @@ class SettingsUpdate {
                     state: status,
                     API_Name: moduleName
                 };
-                setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green", null);
+                setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green");
                 break;
             default:
                 console.warn("Invalid Execution Point");
@@ -484,7 +466,7 @@ class SettingsUpdate {
 //Add eventlistener for settings modal to be opened
 document.getElementById("sideNav_settings").addEventListener("click", () => {
     document.getElementById("accountInformation").style.display = "initial";
-    setModal = new ActiveModal("Settings Modal", this.id, "account-information-highview", null, "open-settings", null, null, null, null);
+    setModal = new ActiveModal("Settings Modal", this.id, "account-information-highview", null, "open-settings", null, null, null);
 });
 //Load Quiz Function.
 //Used to load and show selected quiz data to DOM
@@ -529,7 +511,7 @@ function closeModal(i) {
     }, 250);
 }
 function openFunctionModal() {
-    setModal = new ActiveModal("Alert Box", this.id, this.getAttribute("parentModal"), null, "open-fullPage", null, null, null, null);
+    setModal = new ActiveModal("Alert Box", this.id, this.getAttribute("parentModal"), null, "open-fullPage", null, null, null);
     loadQuizData();
 }
 //DISPLAYING ALERTBOX FOR STARTQUIZ AND ENDQUIZ
@@ -553,16 +535,21 @@ function swtichQuizState(input, jsonID) {
     let currentSelection = userData.Quizzes.QuizzesData[jsonID];
     let currentTime = new Date();
     if (input === true) {
-        new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Quiz Started", null, "bg-green", null);
+        new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Quiz Started", null, "bg-blue");
         currentSelection.active = true;
         currentSelection.Starttime.day = currentTime.getUTCDate();
         currentSelection.Starttime.month = currentTime.getUTCMonth();
         currentSelection.Starttime.year = currentTime.getUTCFullYear();
         currentSelection.Starttime.hour = currentTime.getUTCHours();
         currentSelection.Starttime.minute = currentTime.getUTCMinutes();
+        currentSelection.Endtime.day = null;
+        currentSelection.Endtime.month = null;
+        currentSelection.Endtime.year = null;
+        currentSelection.Endtime.hour = null;
+        currentSelection.Endtime.minute = null;
     }
     else {
-        new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Quiz Ended", null, "bg-green", null);
+        new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Quiz Ended", null, "bg-blue");
         currentSelection.active = false;
         currentSelection.Endtime.day = currentTime.getUTCDate();
         currentSelection.Endtime.month = currentTime.getUTCMonth();
@@ -587,10 +574,10 @@ window.onload = () => {
     }, 3000);
 };
 document.getElementById("del_acc").addEventListener("click", () => {
-    setModal = new ActiveModal("Full Screen Modal", "activateQuiz", "activateQuiz", null, "open-alertBox", "Are you sure?", "This will delete all your data associated to you. You will not be able to access your account nor it's data after that.", null, null);
+    new AlertBox("Are you sure?", "This will delete all your data associated to you. You will not be able to access your account nor it's data after that.", delete_acc(), null, "danger", null, true, true, "Confirm and Delete", "Cancel");
 });
 document.getElementById("reset_acc").addEventListener("click", () => {
-    setModal = new ActiveModal("Full Screen Modal", "activateQuiz", "activateQuiz", null, "open-alertBox", "Are you sure?", "This will reset your account and all the quizes you have made. You will not be able to access those quizzes after that.", null, null);
+    // setModal = new ActiveModal("Full Screen Modal", "activateQuiz", "activateQuiz", null, "open-alertBox", "Are you sure?", "This will reset your account and all the quizes you have made. You will not be able to access those quizzes after that.");
 });
 function verify_pass() {
     if (1 == 1) {
@@ -599,7 +586,7 @@ function verify_pass() {
             $("#newPassword_setActive").append('<div class="col"><input type="password" minlength="8" name="" class="password_entry"placeholder="Enter your new password here" value="" id=""></div><div class="col"><input type="password" name="" minlength="8" class="password_entry"placeholder="Repeat your new password here" value="" id=""></div>');
         }
         else
-            setModal = new ActiveModal("Full Screen Modal", "smallAlert", "smallAlert", null, "show-alert", "Incorrect Password", null, "bg-red", null);
+            setModal = new ActiveModal("Full Screen Modal", "smallAlert", "smallAlert", null, "show-alert", "Incorrect Password", null, "bg-red");
     }
 }
 for (let i = 0; i < document.getElementsByClassName("settingOption").length; i++) {
@@ -625,7 +612,7 @@ document.getElementById("search-index").addEventListener("input", () => {
     if (searchBar.value !== "") {
         searchWrapper.style.display = "relative";
         searchWrapper.style.zIndex = "1";
-        setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null, null);
+        setModal = new ActiveModal("Alert Box", this.id, "searchQuiz", null, "open-fullPage", null, null, null);
         $("#searchQuizContainerContent").html('');
         let searchInput = new RegExp(searchBar.value, "i");
         for (let i in userData.Quizzes.QuizzesData) {
@@ -734,4 +721,7 @@ function timerUpdate() {
     setTimeout(timerUpdate, 1000);
 }
 timerUpdate();
+function delete_acc() {
+    throw new Error("Function not implemented.");
+}
 //End of timer

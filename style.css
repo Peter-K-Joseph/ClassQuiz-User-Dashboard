@@ -612,6 +612,11 @@ button:active {
   color: rgb(247, 243, 243);
 }
 
+.bg-blue {
+  background-color: rgb(100, 148, 237);
+  color: white;
+}
+
 /* Input Element */
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type="checkbox"],
