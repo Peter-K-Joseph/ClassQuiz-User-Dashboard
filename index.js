@@ -361,7 +361,6 @@ class AlertBox {
             </div>`;
             $("body").append(alert);
             document.getElementById(this.customModalID).style.zIndex = "3";
-            document.getElementById(`${this.customModalID}_btn-no`).focus = true;
             document.getElementById(`${this.customModalID}_btn-no`).addEventListener("click", () => {
                 this.closeActiveAlert(`${this.customModalID}`);
             });
