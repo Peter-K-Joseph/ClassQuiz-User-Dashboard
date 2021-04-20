@@ -1050,10 +1050,10 @@ button:active {
   background-color: rgba(85, 85, 85, 0);
   border-radius: 1.75rem;
   position: absolute;
-  bottom: 20px;
+  bottom: 4rem;
   width: 50%;
-  height: 10px;
-  left: 35%;
+  left: 50%;
+  transform: translate(-35%);
 }
 
 .indicator.circle {
@@ -1070,4 +1070,11 @@ button:active {
   transform: scale(1.5);
   background-color: #cfcfcf;
   transition: 0.3s all ease-in;
+}
+
+.reset {
+  padding: 10px 20px;
+border-radius: 0.75rem;
+background-color: #4d76fd;
+color: #fff;
 }

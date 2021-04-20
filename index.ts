@@ -841,3 +841,15 @@ class QuizInit {
         });
     }
 }
+
+document.getElementById("start_over").addEventListener("click", ()=>{
+    document.getElementById("newQuizName").value = "";
+    document.getElementById("name_the_quiz").innerHTML = `Type a name`;
+    document.getElementById("name_the_quiz").disabled = false;
+    document.getElementById("indicator_1").classList.add("selected");
+    document.getElementById("indicator_2").classList.remove("selected");
+    document.getElementById("indicator_3").classList.remove("selected");
+    document.getElementById("indicator_4").classList.remove("selected");
+    document.getElementById("indicator_5").classList.remove("selected");
+    document.getElementById("section_newQuizName").classList.remove("d-none");
+})
