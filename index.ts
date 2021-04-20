@@ -806,31 +806,38 @@ function delete_acc(): string {
 }
 
 //End of timer
-class QuizInit{
-    quizName: any;
-
-    constructor(){
+class QuizInit {
+    quizName: string;
+    constructor() {
         this.nameOfQuiz();
     }
-    
-    nameOfQuiz(){
-        document.getElementById("newQuizName").autofocus = true;    
-        document.getElementById("newQuizName").addEventListener("input", ()=>{
+    nameOfQuiz() {
+        document.getElementById("newQuizName").autofocus = true;
+        setTimeout(() => {
+            document.getElementById("section_newQuizName").classList.remove("d-none");
+        }, 300);
+        document.getElementById("newQuizName").addEventListener("input", () => {
             this.quizName = document.getElementById("newQuizName").value;
             let IDSelector = document.getElementById("name_the_quiz");
-            if (this.quizName != ""){
+            if (this.quizName != "") {
                 IDSelector.innerHTML = `Name Quiz as ${this.quizName}`;
                 IDSelector.disabled = false;
-                IDSelector.addEventListener("click", ()=>{
+                IDSelector.addEventListener("click", () => {
                     document.getElementById("indicator_1").classList.remove("selected");
                     document.getElementById("indicator_2").classList.add("selected");
-                })
-            } else {
+                    document.getElementById("section_newQuizName").classList.add("end");
+                    setTimeout(() => {
+                        document.getElementById("section_newQuizName").classList.remove("end");
+                        document.getElementById("section_newQuizName").classList.add("d-none");
+                    }, 500);
+                });
+            }
+            else {
                 IDSelector.innerHTML = `Type a name`;
                 IDSelector.disabled = true;
                 document.getElementById("indicator_1").classList.add("selected");
-                    document.getElementById("indicator_2").classList.remove("selected");
+                document.getElementById("indicator_2").classList.remove("selected");
             }
-        })
+        });
     }
 }

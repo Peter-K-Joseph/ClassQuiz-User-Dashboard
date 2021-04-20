@@ -743,6 +743,9 @@ class QuizInit {
     }
     nameOfQuiz() {
         document.getElementById("newQuizName").autofocus = true;
+        setTimeout(() => {
+            document.getElementById("section_newQuizName").classList.remove("d-none");
+        }, 300);
         document.getElementById("newQuizName").addEventListener("input", () => {
             this.quizName = document.getElementById("newQuizName").value;
             let IDSelector = document.getElementById("name_the_quiz");
@@ -752,6 +755,11 @@ class QuizInit {
                 IDSelector.addEventListener("click", () => {
                     document.getElementById("indicator_1").classList.remove("selected");
                     document.getElementById("indicator_2").classList.add("selected");
+                    document.getElementById("section_newQuizName").classList.add("end");
+                    setTimeout(() => {
+                        document.getElementById("section_newQuizName").classList.remove("end");
+                        document.getElementById("section_newQuizName").classList.add("d-none");
+                    }, 500);
                 });
             }
             else {

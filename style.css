@@ -94,6 +94,24 @@ button {
 box-shadow: 20px 20px 60px #9fb1d9, -20px -20px 60px #d7efff;
 }
 
+.createQuizSection {
+  animation-name: slideIn;
+  animation-duration: .5s;
+  transition: .3s all ease-in-out;
+}
+
+.createQuizSection.end {
+  transform: translateX(-300px) scale(.7);
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0; 
+    transform: translateX(200px);
+  }
+}
+
 .go-back {
   color: #fcfcfc;
   font-size: 1.2rem;
