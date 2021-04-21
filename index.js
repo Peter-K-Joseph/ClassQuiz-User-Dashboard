@@ -392,25 +392,25 @@ class ActiveModal {
     modalAction(method, alertBox_title, alertBox_context, alertBox_class) {
         switch (method) {
             case "open-fullPage":
-                document.getElementById(this.modalParentClass + "ContainerContent").innerHTML = `<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`;
-                document.getElementById(this.modalParentClass).classList.remove("modal-deactive", "d-none");
+                $("#" + this.modalParentClass + "ContainerContent").html(`<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`);
+                $("#" + this.modalParentClass).removeClass("modal-deactive").removeClass("d-none");
                 break;
             case "open-settings":
-                document.getElementById(this.modalParentClass).classList.remove("modal-deactive", "d-none");
+                $("#" + this.modalParentClass).removeClass("modal-deactive, d-none");
                 document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
                 document.getElementsByClassName("settingOption")[0].classList.add("selectedNav");
                 break;
             case "show-alert":
-                document.getElementById("text_smallAlert").innerHTML = alertBox_title;
-                document.getElementById("smallAlert").classList.add("show");
+                $("#text_smallAlert").html(alertBox_title);
+                $("#smallAlert").addClass("show");
                 if (alertBox_class != null) {
-                    document.getElementById("smallAlert").classList.add(alertBox_class);
+                    $("#smallAlert").addClass(alertBox_class);
                     setTimeout(() => {
-                        document.getElementById("smallAlert").classList.remove(alertBox_class);
+                        $("#smallAlert").removeClass(alertBox_class);
                     }, 1500);
                 }
                 setTimeout(() => {
-                    document.getElementById("smallAlert").classList.remove("show");
+                    $("#smallAlert").removeClass("show");
                 }, 1500);
                 break;
             default:
@@ -418,6 +418,15 @@ class ActiveModal {
                 break;
         }
     }
+}
+//Event Lisetners for Modal closing
+//Selected all 
+function closeModal(i) {
+    let selectedID = document.getElementById(document.getElementsByClassName("close")[i].getAttribute("parentModal"));
+    selectedID.classList.add("modal-deactive");
+    setTimeout(() => {
+        selectedID.classList.add("d-none");
+    }, 250);
 }
 class SettingsUpdate {
     constructor(id, state, moduleAPI, moduleExecutionPoint) {
@@ -467,6 +476,13 @@ document.getElementById("sideNav_settings").addEventListener("click", () => {
     document.getElementById("accountInformation").style.display = "initial";
     setModal = new ActiveModal("Settings Modal", this.id, "account-information-highview", null, "open-settings", null, null, null);
 });
+//Offline and Online Detection
+window.addEventListener('online', function () {
+    new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Connecting...", null, "bg-green");
+});
+window.addEventListener('offline', function () {
+    new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Connection Lost", null, "bg-red");
+});
 //Load Quiz Function.
 //Used to load and show selected quiz data to DOM
 function loadQuizData() {
@@ -491,23 +507,6 @@ function settings() {
         }, 500);
     }
     setTimeout(() => { $(`#${this.getAttribute("trigger")}`).css("display", "initial"); }, 510);
-}
-//Event Lisetners for Modal closing
-//Selected all 
-function closeModal(i) {
-    let selectedID;
-    switch (i) {
-        case 0:
-            selectedID = document.getElementById("activateQuiz");
-            break;
-        default:
-            selectedID = document.getElementById(document.getElementsByClassName("close")[i].getAttribute("parentModal"));
-            break;
-    }
-    selectedID.classList.add("modal-deactive");
-    setTimeout(() => {
-        selectedID.classList.add("d-none");
-    }, 250);
 }
 function openFunctionModal() {
     setModal = new ActiveModal("Alert Box", this.id, this.getAttribute("parentModal"), null, "open-fullPage", null, null, null);
@@ -570,7 +569,7 @@ window.onload = () => {
     }, 100);
     setTimeout(() => {
         document.getElementsByClassName("loader")[0].parentNode.removeChild(document.getElementsByClassName("loader")[0]);
-    }, 3000);
+    }, 2000);
 };
 document.getElementById("del_acc").addEventListener("click", () => {
     new AlertBox("Are you sure?", "This will delete all your data associated to you. You will not be able to access your account nor it's data after that.", delete_acc(), null, "danger", null, true, true, "Confirm and Delete", "Cancel");
@@ -655,6 +654,25 @@ document.getElementById("search-index").addEventListener("input", () => {
         document.getElementById("closesearchQuiz").click();
     }
 });
+document.getElementById("goto_createQuiz").addEventListener("click", () => {
+    $("#dashboard").fadeOut("fast");
+    setTimeout(() => {
+        document.getElementById("dashboard").classList.add("d-none");
+        document.getElementById("window_for_new_quiz").classList.remove("d-none");
+        document.getElementById("goto_createQuiz").classList.add("d-none");
+        document.getElementById("goto_mainDash").classList.remove("d-none");
+    }, 100);
+    new QuizInit();
+});
+document.getElementById("goto_mainDash").addEventListener("click", () => {
+    $("#window_for_new_quiz").addClass("d-none");
+    $("#dashboard").removeClass("d-none");
+    $("#goto_mainDash").addClass("d-none");
+    $("#goto_createQuiz").removeClass("d-none");
+    setTimeout(() => {
+        $("#dashboard").fadeIn();
+    });
+});
 //Update Timer in at places
 function timerToString(value) {
     let givenNum = new Date(value);
@@ -711,19 +729,6 @@ function timerToString(value) {
     }
     return timeSet[0] + timeSet[1] + timeSet[2] + timeSet[3] + timeSet[4] + timeSet[5];
 }
-document.getElementById("goto_createQuiz").addEventListener("click", () => {
-    document.getElementById("dashboard").classList.add("d-none");
-    document.getElementById("window_for_new_quiz").classList.remove("d-none");
-    document.getElementById("goto_createQuiz").classList.add("d-none");
-    document.getElementById("goto_mainDash").classList.remove("d-none");
-    new QuizInit();
-});
-document.getElementById("goto_mainDash").addEventListener("click", () => {
-    document.getElementById("window_for_new_quiz").classList.add("d-none");
-    document.getElementById("dashboard").classList.remove("d-none");
-    document.getElementById("goto_mainDash").classList.add("d-none");
-    document.getElementById("goto_createQuiz").classList.remove("d-none");
-});
 function timerUpdate() {
     let timerElem = document.getElementsByClassName("countDownTimer");
     for (let i = 0; i < timerElem.length; i++) {
@@ -742,43 +747,34 @@ class QuizInit {
         this.nameOfQuiz();
     }
     nameOfQuiz() {
-        document.getElementById("newQuizName").autofocus = true;
         setTimeout(() => {
-            document.getElementById("section_newQuizName").classList.remove("d-none");
+            $("#section_newQuizName").removeClass("d-none");
         }, 300);
         document.getElementById("newQuizName").addEventListener("input", () => {
-            this.quizName = document.getElementById("newQuizName").value;
-            let IDSelector = document.getElementById("name_the_quiz");
-            if (this.quizName != "") {
-                IDSelector.innerHTML = `Name Quiz as ${this.quizName}`;
-                IDSelector.disabled = false;
-                IDSelector.addEventListener("click", () => {
-                    document.getElementById("indicator_1").classList.remove("selected");
-                    document.getElementById("indicator_2").classList.add("selected");
-                    document.getElementById("section_newQuizName").classList.add("end");
+            this.quizDetails["quizName"] = document.getElementById("newQuizName").value;
+            if (this.quizDetails["quizName"] != "") {
+                $("#name_the_quiz").html(`Name Quiz as ${this.quizDetails["quizName"]}`).prop("disabled", true);
+                document.getElementById("name_the_quiz").addEventListener("click", () => {
+                    $("#indicator_1").removeClass("selected");
+                    $("#indicator_2").addClass("selected");
+                    $("#section_newQuizName").addClass("end");
                     setTimeout(() => {
-                        document.getElementById("section_newQuizName").classList.remove("end");
-                        document.getElementById("section_newQuizName").classList.add("d-none");
+                        $("#section_newQuizName").removeClass("end").addClass("d-none");
                     }, 500);
                 });
             }
             else {
-                IDSelector.innerHTML = `Type a name`;
-                IDSelector.disabled = true;
-                document.getElementById("indicator_1").classList.add("selected");
-                document.getElementById("indicator_2").classList.remove("selected");
+                $("#name_the_quiz").html('Type a name').prop("disabled", true);
+                $("#indicator_1").addClass("selected");
+                $("#indicator_2").removeClass("selected");
             }
         });
     }
 }
 document.getElementById("start_over").addEventListener("click", () => {
     document.getElementById("newQuizName").value = "";
-    document.getElementById("name_the_quiz").innerHTML = `Type a name`;
-    document.getElementById("name_the_quiz").disabled = false;
+    $("#name_the_quiz").html("Type a name").prop("disabled", true);
     document.getElementById("indicator_1").classList.add("selected");
-    document.getElementById("indicator_2").classList.remove("selected");
-    document.getElementById("indicator_3").classList.remove("selected");
-    document.getElementById("indicator_4").classList.remove("selected");
-    document.getElementById("indicator_5").classList.remove("selected");
+    $("#indicator_2, #indicator_3, #indicator_4, #indicator_5").removeClass("selected");
     document.getElementById("section_newQuizName").classList.remove("d-none");
 });
