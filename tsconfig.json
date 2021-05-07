@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "target": "esnext",
-        "watch": true
+        "watch": true,
+        "outDir": "./javascript",
     },
     "strict": true
 }

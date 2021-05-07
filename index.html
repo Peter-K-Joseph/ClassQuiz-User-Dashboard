@@ -94,20 +94,21 @@
                             <div id="indicator_5" class="indicator circle"></div>
                         </div>
                         <section id="section_newQuizName" class="createQuizSection d-none">
+                            <img src="./images/quiz.svg" class="create_img_sec" alt="">
                             <h4 class="mx-4 CreateQuizStartMessage">Before we start, let's name your quiz.<br><span
-                                    style="font-size: .6em;">What do you want to call it?</span></h4>
+                                    style="font-size: .6em;">What do you want to call it?</span></h4><br>
                             <input type="name" class="w-50 createQuizTitleImport" name="Topic" id="newQuizName"><br>
                             <button type="button" id="name_the_quiz" disabled
                                 class="button button--primary button--inside text-truncate">Type a name</button>
                         </section>
-                        <!-- <section>
+                        <section id="section_allowOrigin" class="createQuizSection d-none">
+                            <img src="./images/who_can_access.svg" class="create_img_sec" alt="">
                             <h4 class="mx-4 CreateQuizStartMessage">Now, Let's configure your quiz.<br><span
-                                    style="font-size: .6em;">Who can attempt this quiz?</span></h4>
-                                    
+                                    style="font-size: .6em;">Who can attempt this quiz?</span></h4><br>
                             <input type="text" class="w-50 createQuizTitleImport" name="Topic" id="newQuizName"><br>
                             <button type="button" id="name_the_quiz" disabled
                                 class="button button--primary button--inside text-truncate">Type a name</button>
-                        </section> -->
+                        </section>
                     </div>
                 </div>
             </div>
@@ -126,7 +127,7 @@
         <div class="modal-Onscreen">
             <div class="close" id="closeAccount-information-highview" parentModal="account-information-highview"><i
                     class="fas fa-times"></i></div>
-            <div class="container m-3">
+            <div class="container m-3" style="width: 100%; max-width: 100% !important;">
                 <div class="row">
                     <div class="col-sm-2 accountsMoreview">
                         <h1 class="display-6 text-center mt-5 title">Account Services</h1>
@@ -140,7 +141,10 @@
                     <div class="col">
                         <section id="accountInformation" class="settingsNav">
                             <div class="tempDisp">
-                                <h1 class="display-4">Account Information</h1>
+                                <div style="display:block;" align="center">
+                                    <img src="./images/personal.svg" width="40%" alt=""><br><br>
+                                    <h1 class="display-4">Account Information</h1>
+                                </div>
                             </div>
                             <div class="container mainDisp">
                                 <div class="row">
@@ -157,7 +161,7 @@
                                                 style="font-size: 1.2rem;">{first-name}</span>&nbsp;<span
                                                 id="showLastNameInSettingsModal"
                                                 style="opacity: .7; font-size: 1.2rem;">{last-name}</span></h5><br>
-                                        <h3>Identifier ID</h3>
+                                        <h3>Federated ID</h3>
                                         <h5 class="mx-3" id="userIdentifierInSettings">{identifier}</h5><br>
                                     </div>
                                     <div class="col mx-5">
@@ -167,11 +171,15 @@
                                         <h5 class="mx-3" id="organisationDisplayInSettings">{organisation-name}</h5>
                                     </div>
                                 </div>
+                                <img src="./images/personal.svg" width="20%" class="settings_secbg" alt="">
                             </div>
                         </section>
                         <section id="dataAndPersonalisation" class="settingsNav">
                             <div class="tempDisp">
-                                <h1 class="display-4">Data and Personalisation</h1>
+                                <div style="display:block;" align="center">
+                                    <img src="./images/personalise.svg" width="40%" alt=""><br><br>
+                                    <h1 class="display-4">Data and Personalisation</h1>
+                                </div>
                             </div>
                             <div class="container mainDisp">
                                 <h2 class="mt-5 ms-5">Personalisation</h2>
@@ -188,10 +196,10 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <h4>Invert Colors</h4>
+                                    <h4>Activate Dark Mode</h4>
                                     <div class="container row">
                                         <div class="col">
-                                            <p>Invert the colors of the dashboard</p>
+                                            <p>Turns on dark mode by default when you visit this page</p>
                                         </div>
                                         <div class="col col-1">
                                             <input id="invertColors" moduleName="invertColors"
@@ -203,12 +211,15 @@
                         </section>
                         <section id="privacyAndSecurity" class="settingsNav">
                             <div class="tempDisp">
-                                <h1 class="display-4">Privacy and Security</h1>
+                                <div style="display:block;" align="center">
+                                    <img src="./images/privacy_security.svg" width="40%" alt=""><br><br>
+                                    <h1 class="display-4">Privacy and Security</h1>
+                                </div>
                             </div>
                             <div class="container mainDisp">
                                 <h2 class="mt-5 ms-5">Security</h2>
                                 <div class="internalSettingOption">
-                                    <h4>Two Factor Authentication</h4>
+                                    <h4>Multi Factor Authentication</h4>
                                     <p>Turn on an additional layer of security while logging in to ensure that your
                                         account stays safe from external hands even if someone get's your password</p>
                                     <div class="container">
@@ -262,12 +273,30 @@
                                         your account. You will be required to <b>sign up</b> again to use this ClassQuiz
                                     </p>
                                     <button class="btn del_acc" ID="del_acc">Delete Account</button>
+                                    <hr>
+                                    <h4>Privacy Policy Overview</h4>
+                                    <p>This section gives you an overview about your data we process
+                                    <ul>
+                                        <li>Name</li>
+                                        <li>Email</li>
+                                        <li>IP Address</li>
+                                        <li>Organiation ID/Name</li>
+                                        <li>Quizzes Data</li>
+                                        <li>Crash Reports</li>
+                                        <li>Analytics</li>
+                                        <li>Email ID of participants</li>
+                                    </ul>
+                                    NOTE: Your Federated Cloud ID is used to uniquely identify you and your data which will be reassigned when resetting the data and will be deleted when you delete your account. This data is also used by us to identify you in case of any support requests
+                                    </p>
                                 </div>
                             </div>
                         </section>
                         <section id="About" class="settingsNav">
                             <div class="tempDisp">
-                                <h1 class="display-4">About</h1>
+                                <div style="display:block;" align="center">
+                                    <img src="./images/about_us.svg" width="40%" alt=""><br><br>
+                                    <h1 class="display-4">About Us</h1>
+                                </div>
                             </div>
                             <div class="container mainDisp contentCenter" style="height: 80vh">
                                 <div class="text-center" style="font-family: 'Comfortaa', cursive;">
@@ -276,11 +305,11 @@
                                     <h5>By Peter K Joseph</h5>
                                     <div class="row m-3" style="width: 100%">
                                         <div class="col">
-                                            <b>License</b><br><img class="m-2" src="./creative_commons.png" width="50%"
-                                                alt="Creative Commons">
+                                            <b>License</b><br><img class="m-2" src="./images/creative_commons.png"
+                                                width="50%" alt="Creative Commons">
                                         </div>
                                         <div class="col">
-                                            <b>Type</b><br><img class="m-2" src="./by-nc-sa.png" width="50%"
+                                            <b>Type</b><br><img class="m-2" src="./images/by-nc-sa.png" width="50%"
                                                 alt="CC BY-NC-SA">
                                         </div>
                                         <div class="col">
@@ -338,6 +367,8 @@
         </div>
     </div>
 </body>
-<script src="./index.js"></script>
+<script src="./javascript/index.js"></script>
+<script src="./javascript/modal.js"></script>
+<script src="./javascript/settings.js"></script>
 
 </html>

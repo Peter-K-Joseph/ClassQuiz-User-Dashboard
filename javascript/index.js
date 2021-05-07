@@ -290,228 +290,13 @@ function updateSerices() {
 }
 updateSerices();
 //End of system init
-let paramID; //Parameter ID or quiz_identifier
-let setModal; //Used to call modal or alert box to DOM. Classes contain "open-alertBox", "open-fullPage", "open-settings", "show-alert".
-//Modal Controller Class Module
-class AlertBox {
-    constructor(title, content, Call_this_when_accept_pressed, Call_this_when_reject_pressed, Show_this_favicon_in_the_modal, customID, displayAcceptButton, displayRejectButton, value_to_display_in_accept_button, value_to_display_in_reject_button) {
-        let icons = {
-            alert: `<i class="fas fa-exclamation-triangle activateQuizAlert"></i>`,
-            danger: `<i class="fas fa-exclamation-circle activateQuizAlert"></i>`,
-            radioactive: `<i class="fas fa-radiation-alt activateQuizAlert"></i>`,
-            info: `<i class="fas fa-info-circle activateQuizAlert"></i>`,
-            question: `<i class="fas fa-question activateQuizAlert"></i>`
-        };
-        this.title = title;
-        this.content = content;
-        this.AcceptButtonFunctionCall = Call_this_when_accept_pressed;
-        this.RejectButtonFunctionCall = Call_this_when_reject_pressed;
-        switch (Show_this_favicon_in_the_modal) {
-            case "alert":
-                this.iconOnDisplay = icons.alert;
-                break;
-            case "danger":
-                this.iconOnDisplay = icons.danger;
-                break;
-            case "radioactive":
-                this.iconOnDisplay = icons.radioactive;
-                break;
-            case "info":
-                this.iconOnDisplay = icons.info;
-                break;
-            case "question":
-                this.iconOnDisplay = icons.radioactive;
-                break;
-            default:
-                this.iconOnDisplay = Show_this_favicon_in_the_modal;
-                break;
-        }
-        (customID === null || customID == "") ? this.customModalID = Math.random().toString(16).substr(2, 8) : this.customModalID = customID;
-        (displayAcceptButton === null || displayAcceptButton == true) ? this.displayAcceptButton = true : this.displayAcceptButton = false;
-        (displayRejectButton === null || displayRejectButton == true) ? this.displayRejectButton = true : this.displayRejectButton = false;
-        (value_to_display_in_accept_button === null || value_to_display_in_accept_button == "") ? this.value_to_display_in_accept_button = "Yes" : this.value_to_display_in_accept_button = value_to_display_in_accept_button;
-        (value_to_display_in_reject_button === null || value_to_display_in_reject_button == "") ? this.value_to_display_in_reject_button = "No" : this.value_to_display_in_reject_button = value_to_display_in_reject_button;
-        this.create();
-    }
-    closeActiveAlert(IDoftheAlertBox) {
-        document.getElementById(IDoftheAlertBox).classList.add("modal-deactive");
-        setTimeout(() => {
-            $("#" + IDoftheAlertBox).remove();
-        }, 250);
-    }
-    create() {
-        if (this.title != "" && this.content != "") {
-            let State = { yes: "", no: "" };
-            if (this.displayAcceptButton === true)
-                State.yes = `<button class="btn btn-success w-4 m-2 me-3" onclick="${this.AcceptButtonFunctionCall}" id="${this.customModalID}_btn-yes">${this.value_to_display_in_accept_button}</button>`;
-            if (this.displayRejectButton === true)
-                State.no = `<button class="btn btn-danger w-4 m-2 me-3" onclick="${this.RejectButtonFunctionCall}" id="${this.customModalID}_btn-no">${this.value_to_display_in_reject_button}</button>`;
-            let alert = `
-            <div class="modal-background" id="${this.customModalID}">
-                <div class="modal-Onscreen sq-3">
-                    <div class="close" id="close${this.customModalID}" parentModal="${this.customModalID}"><i class="fas fa-times"></i></div>
-                    <div class="container">
-                        <div class="activateQuizAlert">${this.iconOnDisplay}</div>
-                        <h3 class="text-center">${this.title}</h3>
-                        <p class="text-center lead m-3">${this.content}</p>
-                        ${State.no}
-                        ${State.yes}
-                    </div>
-                </div>
-            </div>`;
-            $("body").append(alert);
-            document.getElementById(this.customModalID).style.zIndex = "3";
-            document.getElementById(`${this.customModalID}_btn-no`).addEventListener("click", () => {
-                this.closeActiveAlert(`${this.customModalID}`);
-            });
-            document.getElementById(`close${this.customModalID}`).addEventListener("click", () => {
-                this.closeActiveAlert(`${this.customModalID}`);
-            });
-            document.getElementById(`${this.customModalID}_btn-yes`).addEventListener("click", () => {
-                this.closeActiveAlert(`${this.customModalID}`);
-            });
-            console.log(`Alert Box with ID ${this.customModalID} was created. Close Alert Box events will fire once a button is pressed`);
-        }
-        else {
-            console.warn("[nuvie => ALERTBOX] Argument Expects atleast one parameter (title,content)");
-        }
-    }
-    modalID(modalID) {
-        throw new Error("Method not implemented.");
-    }
-}
-class ActiveModal {
-    //Contrustor Init: Code Loads and saves necessary data about the modal itself
-    constructor(modalType, modalID, modalParentClass, modalClose, method, alertBox_title, alertBox_context, alertBox_class) {
-        this.modalType = modalType;
-        this.modalID = modalID;
-        this.modalParentClass = modalParentClass;
-        this.modalClose = modalClose;
-        this.modalAction(method, alertBox_title, alertBox_context, alertBox_class);
-    }
-    modalAction(method, alertBox_title, alertBox_context, alertBox_class) {
-        switch (method) {
-            case "open-fullPage":
-                $("#" + this.modalParentClass + "ContainerContent").html(`<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`);
-                $("#" + this.modalParentClass).removeClass("modal-deactive").removeClass("d-none");
-                break;
-            case "open-settings":
-                $("#" + this.modalParentClass).removeClass("modal-deactive, d-none");
-                document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
-                document.getElementsByClassName("settingOption")[0].classList.add("selectedNav");
-                break;
-            case "show-alert":
-                $("#text_smallAlert").html(alertBox_title);
-                $("#smallAlert").addClass("show");
-                if (alertBox_class != null) {
-                    $("#smallAlert").addClass(alertBox_class);
-                    setTimeout(() => {
-                        $("#smallAlert").removeClass(alertBox_class);
-                    }, 1500);
-                }
-                setTimeout(() => {
-                    $("#smallAlert").removeClass("show");
-                }, 1500);
-                break;
-            default:
-                console.warn("Unexpected Parameter: System Expects [close | open-alertBox | open-fullPage]");
-                break;
-        }
-    }
-}
-//Event Lisetners for Modal closing
-//Selected all 
-function closeModal(i) {
-    let selectedID = document.getElementById(document.getElementsByClassName("close")[i].getAttribute("parentModal"));
-    selectedID.classList.add("modal-deactive");
-    setTimeout(() => {
-        selectedID.classList.add("d-none");
-    }, 250);
-}
-class SettingsUpdate {
-    constructor(id, state, moduleAPI, moduleExecutionPoint) {
-        this.id = id;
-        this.status = state;
-        this.moduleName = moduleAPI;
-        this.targetExecution = moduleExecutionPoint;
-        this.uploadDataToServer(this.id, this.status, this.moduleName, this.targetExecution);
-    }
-    uploadDataToServer(id, status, moduleName, targetExecution) {
-        // Sends A Post Request to server with values = {id = {this.id}, state = {this.state}, API_Name = {this.moduleName}}. 
-        // if failed, Show Notification with bg-red
-        switch (targetExecution) {
-            case "client":
-                switch (moduleName) {
-                    case "invertColors":
-                        if (status == true) {
-                            userData.DarkTheme = true;
-                            $("button, .image, body, .selectedNav").css("filter", "invert(1)");
-                        }
-                        else {
-                            userData.DarkTheme = false;
-                            $(".image, button, .selectedNav, body").css("filter", null);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case "server":
-                const value = {
-                    id: id,
-                    state: status,
-                    API_Name: moduleName
-                };
-                setModal = new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Settings Updated", null, "bg-green");
-                break;
-            default:
-                console.warn("Invalid Execution Point");
-                break;
-        }
-    }
-}
-//SideNav Setting
-//Add eventlistener for settings modal to be opened
-document.getElementById("sideNav_settings").addEventListener("click", () => {
-    document.getElementById("accountInformation").style.display = "initial";
-    setModal = new ActiveModal("Settings Modal", this.id, "account-information-highview", null, "open-settings", null, null, null);
-});
-//Offline and Online Detection
-window.addEventListener('online', function () {
-    new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Connecting...", null, "bg-green");
-});
-window.addEventListener('offline', function () {
-    new ActiveModal("Alert Box", "smallAlert", "smallAlert", null, "show-alert", "Connection Lost", null, "bg-red");
-});
-//Load Quiz Function.
-//Used to load and show selected quiz data to DOM
-function loadQuizData() {
-    setTimeout(() => {
-        document.getElementById("displayActiveQuizDetailsContainerContent").innerHTML = `<div class="text-center">
-        <h1 class="display-5"><i style="font-size: 8rem" class="fas fa-ghost"></i><br><br>Aww Snaps! Looks like we just got ghosted</h1><br>
-        <p class="lead">An error occurred while connecting to server. Please refresh the browser.<br>[ERR_RESOLUTION: 403]</p>
-    </div>`;
-    }, 5000);
-}
-//Navigational Property of SETTINGS 
-// Init -> AddEventListener -> Triggers when clicked on a button using class selector -> grabs ID and attributes -> initiates a timed event using Timeout
-let settingOption = document.getElementsByClassName("settingOption");
-for (let i = 0; i < settingOption.length; i++) {
-    settingOption[i].addEventListener("click", settings);
-}
-function settings() {
-    let settingsNavigator = document.getElementsByClassName("settingsNav");
-    for (let i = 0; i < settingsNavigator.length; i++) {
-        setTimeout(() => {
-            $(`#${settingsNavigator[i].id}`).css("display", "none");
-        }, 500);
-    }
-    setTimeout(() => { $(`#${this.getAttribute("trigger")}`).css("display", "initial"); }, 510);
-}
+//Modal
 function openFunctionModal() {
     setModal = new ActiveModal("Alert Box", this.id, this.getAttribute("parentModal"), null, "open-fullPage", null, null, null);
     loadQuizData();
 }
+let paramID; //Parameter ID or quiz_identifier
+let setModal; //Used to call modal or alert box to DOM. Classes contain "open-alertBox", "open-fullPage", "open-settings", "show-alert".
 //DISPLAYING ALERTBOX FOR STARTQUIZ AND ENDQUIZ
 function alertMode() {
     let cache = ["Heading", "Context", "Function"];
@@ -571,12 +356,6 @@ window.onload = () => {
         document.getElementsByClassName("loader")[0].parentNode.removeChild(document.getElementsByClassName("loader")[0]);
     }, 2000);
 };
-document.getElementById("del_acc").addEventListener("click", () => {
-    new AlertBox("Are you sure?", "This will delete all your data associated to you. You will not be able to access your account nor it's data after that.", delete_acc(), null, "danger", null, true, true, "Confirm and Delete", "Cancel");
-});
-document.getElementById("reset_acc").addEventListener("click", () => {
-    // setModal = new ActiveModal("Full Screen Modal", "activateQuiz", "activateQuiz", null, "open-alertBox", "Are you sure?", "This will reset your account and all the quizes you have made. You will not be able to access those quizzes after that.");
-});
 function verify_pass() {
     if (1 == 1) {
         if (userVerificationServices() === true) {
@@ -594,7 +373,6 @@ for (let i = 0; i < document.getElementsByClassName("settingOption").length; i++
             document.getElementsByClassName("selectedNav")[0].style.filter = null;
         document.getElementsByClassName("selectedNav")[0].classList.remove("selectedNav");
         classSelect[i].classList.add("selectedNav");
-        (userData.DarkTheme === true) ? document.querySelector(".selectedNav").style.filter = "invert(1)" : document.querySelector(".selectedNav").style.filter = null;
     });
 }
 for (let i = 0; i < document.getElementsByClassName("switch").length; i++) {
@@ -642,7 +420,7 @@ document.getElementById("search-index").addEventListener("input", () => {
         }
         if (result.length == 0) {
             $("#searchQuizContainerContent").css("display", "flex");
-            document.getElementById("searchQuizContainerContent").innerHTML = '<div style="text-align: center"><img src="./search-error.svg"><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
+            document.getElementById("searchQuizContainerContent").innerHTML = '<div style="text-align: center"><img class="search_not_found" src="./images/search_not_found.svg"><h1 class="display-5">Search couldn\'t find any quizzes</h1></div>';
         }
         else {
             $("#searchQuizContainerContent").css("display", "block");
@@ -657,18 +435,15 @@ document.getElementById("search-index").addEventListener("input", () => {
 document.getElementById("goto_createQuiz").addEventListener("click", () => {
     $("#dashboard").fadeOut("fast");
     setTimeout(() => {
-        document.getElementById("dashboard").classList.add("d-none");
-        document.getElementById("window_for_new_quiz").classList.remove("d-none");
-        document.getElementById("goto_createQuiz").classList.add("d-none");
-        document.getElementById("goto_mainDash").classList.remove("d-none");
+        $("#dashboard, #goto_createQuiz, #section_allowOrigin").addClass("d-none");
+        $("#window_for_new_quiz, #goto_mainDash, #section_newQuizName").removeClass("d-none");
     }, 100);
     new QuizInit();
 });
 document.getElementById("goto_mainDash").addEventListener("click", () => {
     $("#window_for_new_quiz").addClass("d-none");
-    $("#dashboard").removeClass("d-none");
+    $("#dashboard, #goto_createQuiz").removeClass("d-none");
     $("#goto_mainDash").addClass("d-none");
-    $("#goto_createQuiz").removeClass("d-none");
     setTimeout(() => {
         $("#dashboard").fadeIn();
     });
@@ -744,22 +519,25 @@ function delete_acc() {
 //End of timer
 class QuizInit {
     constructor() {
+        this.quizDetails = { "quizName": "" };
         this.nameOfQuiz();
     }
     nameOfQuiz() {
         setTimeout(() => {
-            $("#section_newQuizName").removeClass("d-none");
+            $("#section_newQuizName").removeClass("end, d-none");
         }, 300);
+        document.getElementById("newQuizName").value = "";
         document.getElementById("newQuizName").addEventListener("input", () => {
             this.quizDetails["quizName"] = document.getElementById("newQuizName").value;
             if (this.quizDetails["quizName"] != "") {
-                $("#name_the_quiz").html(`Name Quiz as ${this.quizDetails["quizName"]}`).prop("disabled", true);
+                $("#name_the_quiz").html(`Name Quiz as ${this.quizDetails["quizName"]}`).prop("disabled", false);
                 document.getElementById("name_the_quiz").addEventListener("click", () => {
                     $("#indicator_1").removeClass("selected");
                     $("#indicator_2").addClass("selected");
                     $("#section_newQuizName").addClass("end");
                     setTimeout(() => {
                         $("#section_newQuizName").removeClass("end").addClass("d-none");
+                        $("#section_allowOrigin").removeClass("d-none");
                     }, 500);
                 });
             }
@@ -774,7 +552,8 @@ class QuizInit {
 document.getElementById("start_over").addEventListener("click", () => {
     document.getElementById("newQuizName").value = "";
     $("#name_the_quiz").html("Type a name").prop("disabled", true);
-    document.getElementById("indicator_1").classList.add("selected");
+    $("#indicator_1").addClass("selected");
     $("#indicator_2, #indicator_3, #indicator_4, #indicator_5").removeClass("selected");
-    document.getElementById("section_newQuizName").classList.remove("d-none");
+    $("#section_newQuizName").removeClass("d-none");
+    $("#section_allowOrigin").addClass("d-none");
 });
