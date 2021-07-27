@@ -252,7 +252,7 @@ function timingFunction(quizNum, startTime: true | false) {
 }
 
 //Updating Components in DOM
-function updateSerices() {
+const updateSerices = () => {
     $("#account_overview_info, #next_up_recents").html("");
     $("#account_overview_info").append('<div class="account container m-0 p-0"><div class="profileImage image" style="background-image: url(' + userData.Avatar_Image + ');"></div><div class="avatarName text-center h4 m-3 p-0 ">@' + userData.Avatar + '</div><div class="profileName text-center m-3 blockquote-footer">' + userData.Name.first + ' ' + userData.Name.last + '</div></div><button class="Logout">Logout</button>');
     document.getElementById("imgContainer").style.backgroundImage = `url(` + userData.Avatar_Image + `)`;
@@ -322,6 +322,7 @@ function alertMode() {
         cache[1] = 'Would you like to end the quiz now? Press Yes if you\'d wish to close quiz';
         cache[2] = `swtichQuizState(false, ${this.getAttribute("jsonid")})`;
     }
+    // Swal.fire(cache[0], cache[1])
     new AlertBox(cache[0], cache[1], cache[2], null, "alert", null, true, true, null, null);
 }
 

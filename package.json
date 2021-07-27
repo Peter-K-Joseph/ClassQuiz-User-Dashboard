@@ -4,7 +4,7 @@
   "description": "Create Quizzes online",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-tsc": "tsc"
   },
   "author": "Peter K Joseph",
   "license": "MIT",
