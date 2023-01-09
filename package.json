@@ -9,7 +9,7 @@
   "author": "Peter K Joseph",
   "license": "MIT",
   "dependencies": {
-    "luxon": "^1.26.0"
+    "luxon": "^2.5.2"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.5",
